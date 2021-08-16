@@ -1,0 +1,43 @@
+.footer {
+    background: url('./../../Assets/img/footer-background.jpg');
+
+    .footer-section {
+        box-sizing: border-box;
+        padding: 2.85rem 1.75rem 6rem;
+        max-width: 1400px;
+        margin: 0 auto;
+
+        .footer-question {
+            font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 1.9rem;
+        }
+        .footer-content {
+            list-style-type: circle;
+            margin: 0 2rem;
+            li {
+                color: #b5b5b5;
+                line-height: 1.5;
+            }
+        }
+    }
+    .footer-contact {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+
+        .btn-fb {
+            background-color: #ddd;
+            padding: 0.4rem 0.3rem;
+            border-radius: 0.3rem;
+            display: flex;
+            align-items: center;
+
+            span {
+                margin-left: 0.4rem;
+                color: #00f;
+            }
+        }
+    }
+    
+}
