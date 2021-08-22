@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 function FAQPage() {
     return (
-        <div className="faq">
+        <div className="main-section">
             <div className="section">
                 <h1 className="faq-title">Câu hỏi thường gặp</h1>
                     <div className="faq-item">

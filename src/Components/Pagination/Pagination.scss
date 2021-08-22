@@ -1,0 +1,21 @@
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+
+    .pag-btn {
+        padding: 0.5rem 0.75rem;
+        display: inline-block;
+        border: solid 1px #dbdbdb;
+        border-radius: 3px;
+        margin: 0.25rem;
+        transition: 0.3s ease;
+        text-align: center;
+
+        &:hover {
+            border: solid 1px #b5b5b5;
+            color: #dcf836;
+        }
+    }
+}

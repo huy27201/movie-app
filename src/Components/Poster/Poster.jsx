@@ -3,11 +3,12 @@ import './Poster.scss'
 
 function Poster(props) {
     const { data } = props
+    const image = data.poster_path ? <img src={`https://image.tmdb.org/t/p/w300${data.poster_path}`} alt="Poster" /> : ''
     console.log(data);
     return (
         <div className="poster-item">
             <a href="#" className="poster-img">
-                <img src={`https://image.tmdb.org/t/p/w300${data.poster_path}`} alt="" />
+                {image}
             </a>
             <div className="poster-content">
                 <a href="#" className="poster-name">
