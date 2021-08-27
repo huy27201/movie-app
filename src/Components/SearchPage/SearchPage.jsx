@@ -50,8 +50,8 @@ function SearchPage() {
                     <SearchForm
                         onSubmit = {handleFiltersChange}
                     />
-                    {movieList.length > 0 ? <PosterList list = {movieList} title = "Phim lẻ" /> : ''}
-                    {tvList.length > 0 ? <PosterList list = {tvList} title = "Phim bộ" /> : ''}
+                    {movieList.length > 0 ? <PosterList type="movie" list = {movieList} title = "Phim lẻ" /> : ''}
+                    {tvList.length > 0 ? <PosterList type="tv" list = {tvList} title = "Phim bộ" /> : ''}
                 </div>
             </div>
         </div>

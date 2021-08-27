@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState, lazy, Suspense } from 'react'
 import axios from 'axios'
-import { useState, useEffect } from 'react'
 import PosterList from '../Poster/PosterList'
 
 function HomePage() {

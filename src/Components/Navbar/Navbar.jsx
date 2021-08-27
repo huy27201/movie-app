@@ -36,7 +36,7 @@ function Navbar() {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/show" className="nav-item" activeClassName="active">
+                                <NavLink to="/tv" className="nav-item" activeClassName="active">
                                     Phim Bộ
                                     </NavLink>
                             </li>

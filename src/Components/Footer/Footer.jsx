@@ -20,7 +20,7 @@ function Footer() {
                 <div className="footer-contact">
                     <Link to="/" className ="link">Liên hệ</Link>
                     <IconContext.Provider value={{color: '#4267b2', size: '1.3rem'}}>
-                        <a href="https://www.facebook.com/XemPhim.Official/" className="btn-fb">
+                        <a href="https://www.facebook.com/XemPhim.Official/" className="btn-fb" target="_blank" rel="noreferrer">
                             <FaFacebookSquare /> 
                             <span>XemPhim.Official</span>
                         </a>

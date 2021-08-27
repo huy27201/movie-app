@@ -1,22 +1,26 @@
 import React from 'react'
 import './Poster.scss'
+import { Link, useLocation }  from 'react-router-dom'
 
 function Poster(props) {
+    const location = useLocation()
     const { data } = props
     const image = data.poster_path ? <img src={`https://image.tmdb.org/t/p/w300${data.poster_path}`} alt="Poster" /> : ''
-    console.log(data);
+    const type  = data.media_type ? data.media_type : props.type ? props.type : location.pathname.substr(1)
+    const filmPath = `/${type}/${data.id}`
+
     return (
         <div className="poster-item">
-            <a href="#" className="poster-img">
+            <Link to={filmPath} className="poster-img">
                 {image}
-            </a>
+            </Link>
             <div className="poster-content">
-                <a href="#" className="poster-name">
-                    {data.title ? data.title : data.name}
-                </a>
-                <a href="#" className="poster-origin-name">
-                    {data.original_title ? data.original_title : data.original_name}
-                </a>
+                <Link to={filmPath} className="poster-name">
+                    {data.title || data.name}
+                </Link>
+                <Link to={filmPath} className="poster-origin-name">
+                    {data.original_title || data.original_name}
+                </Link>
             </div>
         </div>
     )
