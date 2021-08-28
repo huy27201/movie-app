@@ -6,7 +6,7 @@ function PosterList(props) {
     const title = props.title ? <h2 className="poster-title">{props.title}</h2> : ''
     const limit = props.limit ? props.limit : 999
     const { list, type } = props
-    const posts = list ? list.map((item, index) => index < limit ? <Poster type={type} key={item.id} data={item} /> : '') : ''
+    const posts = list ? list.map((item, index) => index < limit ? <Poster type={type} key={item.id || index} data={item} /> : '') : ''
     return ( 
         <>
             {title}

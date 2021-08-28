@@ -1,0 +1,38 @@
+$gap: 1.25rem;
+
+.actor-neg {
+    margin: 0 -2rem;
+}
+.profile-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem;
+}
+.profile-key {
+    margin: 0;
+    color: #dbdbdb;
+    font-weight: bold;
+    line-height: 1.5;
+}
+.profile-value {
+    margin: 0 0 1.25rem;
+    color: #b5b5b5;
+}
+.profile-images {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 calc(-1 * #{$gap});
+
+    .profile-image {
+        flex: 0 0 calc(25% - #{$gap} * 2);
+        padding: 0.75rem $gap;
+
+        .profile-image-container {
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+}
+

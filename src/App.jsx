@@ -8,6 +8,7 @@ import SearchPage from './Components/SearchPage/SearchPage'
 import TVPage from './Components/TVPage/TVPage'
 import Footer from './Components/Footer/Footer'
 import NotFound from './Components/NotFound/NotFound'
+import ActorPage from './Components/ActorPage/ActorPage'
 import './Style/Style.scss'
 
 function App() {
@@ -38,6 +39,10 @@ function App() {
             <Route
               path= "/faq" 
               component = {FAQPage} 
+            />
+            <Route
+              path= "/person/:id"
+              component = {ActorPage} 
             />
             <Route
               path= "/:type/:id"
