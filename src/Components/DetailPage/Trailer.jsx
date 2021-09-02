@@ -6,10 +6,10 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 function Trailer(props) {
-    const { list } = props
+    const { list, handleClick } = props
     const videos = list ? list.map(item => 
             <div key={item.id} className="detail-trailer">
-                <div className="detail-trailer-img">
+                <div className="detail-trailer-img" onClick={() => handleClick(item.key)}>
                     <img src={`https://img.youtube.com/vi/${item.key}/mqdefault.jpg`} alt={item.key} />
                     <div className="detail-trailer-icon">
                         <FaPlay  />
@@ -29,9 +29,9 @@ function Trailer(props) {
         <>
             <h3 className="slider-title">Trailer</h3>
             <IconContext.Provider value={{color: '#fff', size: '2rem'}}>
-            <Slider {...sliderSetting} className="detail-trailers">
-                {videos}
-            </Slider>
+                <Slider {...sliderSetting} className="detail-trailers">
+                    {videos}
+                </Slider>
             </IconContext.Provider>
         </>
     )

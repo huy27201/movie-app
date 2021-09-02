@@ -12,7 +12,7 @@ ul {
 form {
     margin: 1rem 0;
 }
-input {
+input[type="text"], input[type="password"] {
     font-size: 1.25rem;
     width: 100%;
     box-sizing: border-box;
@@ -26,6 +26,14 @@ input {
     }
     &::placeholder {
         color: #ccc;
+    }
+}
+label {
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    &:hover {
+        color: #ffdd57;
     }
 }
 body {

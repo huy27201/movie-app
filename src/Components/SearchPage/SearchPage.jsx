@@ -36,8 +36,8 @@ function SearchPage() {
 
     useEffect(() => {
         const paramsFilters = queryString.stringify(filters)
-        const movieUrl = `https://api.themoviedb.org/3/search/movie?api_key=93575fc50e306d7f610ab205e9f80ee4&${paramsFilters}`
-        const tvUrl = `https://api.themoviedb.org/3/search/tv?api_key=93575fc50e306d7f610ab205e9f80ee4&${paramsFilters}`
+        const movieUrl = `${process.env.REACT_APP_URL}/search/movie?api_key=${process.env.REACT_APP_API_KEY}&${paramsFilters}`
+        const tvUrl = `${process.env.REACT_APP_URL}/search/tv?api_key=${process.env.REACT_APP_API_KEY}&${paramsFilters}`
         
         fetchFunc(movieUrl, setMovieList)
         fetchFunc(tvUrl, setTvList)

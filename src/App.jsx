@@ -10,6 +10,7 @@ import Footer from './Components/Footer/Footer'
 import NotFound from './Components/NotFound/NotFound'
 import ActorPage from './Components/ActorPage/ActorPage'
 import './Style/Style.scss'
+import LoginPage from './Components/LoginPage/LoginPage'
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
             <Route
               path= "/faq" 
               component = {FAQPage} 
+            />
+            <Route
+              path= "/login" 
+              component = {LoginPage} 
             />
             <Route
               path= "/person/:id"

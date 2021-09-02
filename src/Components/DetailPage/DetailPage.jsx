@@ -4,19 +4,24 @@ import axios from 'axios'
 import NotFound from '../NotFound/NotFound'
 import Cast from './Cast'
 import Trailer from './Trailer'
+import TrailerDetail from './TrailerDetail'
 import { Link } from 'react-router-dom'
 import { FaPlay, FaFacebookSquare, FaPlus } from 'react-icons/fa'
 import { IconContext } from 'react-icons'
 import './DetailPage.scss'
-
 
 function DetailPage() {
     const { type, id } = useParams()
     const [data, setData] = useState({})
     const [credits, setCredits] = useState({})
     const [trailers, setTrailers] = useState({})
+    const [trailerKey, setTrailerKey] = useState('')
     const [checkParams, setCheckParams] = useState(false)
 
+    const handleTrailer = key => {
+        console.log(key)
+        setTrailerKey(key)
+    }
     const fetchFunc = (url, callback) => {
         axios.get(url)
         .then(res => {
@@ -64,7 +69,11 @@ function DetailPage() {
                                 <div className="detail margin-neg">
                                     <div className="detail-item detail-card">
                                         <div className="detail-poster">
-                                            <img src={`https://image.tmdb.org/t/p/w300${data.poster_path}`} alt="Poster" />
+                                            <img 
+                                                src={data.poster_path ? `https://image.tmdb.org/t/p/w300${data.poster_path}`
+                                                    : 'https://i.imgur.com/wLJJctg.png'} 
+                                                alt="Poster" 
+                                            />
                                         </div>
                                         <IconContext.Provider value={{color: '#fff', size: '1.25rem'}}>
                                             <Link to="/" className="detail-watch">
@@ -136,12 +145,21 @@ function DetailPage() {
                                             </div>
                                         </div>
                                         <p className="detail-overview">{data.overview}</p>
-                                        <Cast list={credits.cast}/>
-                                        <Trailer list={trailers.results}/>
+                                        <Cast 
+                                            list={credits.cast}
+                                        />
+                                        <Trailer 
+                                            list={trailers.results} 
+                                            handleClick={handleTrailer}
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <TrailerDetail 
+                            trailerKey={trailerKey}
+                            handleClick={handleTrailer}
+                        />
                     </>
                     : <NotFound />
             }

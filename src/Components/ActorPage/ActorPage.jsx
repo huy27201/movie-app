@@ -84,7 +84,9 @@ function ActorPage() {
                                             {profile.name}
                                         </h1>
                                         <h2 className="profile-title">Tiểu sử</h2>
-                                        <p className="detail-overview">{profile.biography}</p>
+                                        <p className="detail-overview actor-overview">
+                                            {profile.biography !== '' ? profile.biography : 'Hiện chưa cập nhật tiểu sử.'}
+                                        </p>
                                         <h2 className="profile-title">Ảnh</h2>
                                         <ActorImageList
                                             list={images.profiles}

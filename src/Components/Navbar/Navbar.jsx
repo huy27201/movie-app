@@ -48,7 +48,7 @@ function Navbar() {
                         </ul>
                     </IconContext.Provider>
                     <div id="nav-btn-container">
-                        <a href="#" className="nav-btn nav-item">Đăng nhập</a>
+                        <Link to="/login" className="nav-btn nav-item">Đăng nhập</Link>
                     </div>
                 </div>
                 

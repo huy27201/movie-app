@@ -1,0 +1,75 @@
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.flex-center {
+    @include flex-center;
+}
+.login-title {
+    color: grey;
+    margin: 0 0 1rem;
+    font-weight: 500;
+}
+.box {
+    flex: 0 0 27.5%;
+    margin-bottom: 1rem;
+
+    .form {
+        padding: 1.25rem;
+        background-color: #363636;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+    
+        .field {
+            margin-bottom: 1rem;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            box-sizing: border-box;
+            margin-top: 1rem;
+
+            border: none;
+            border-radius: 5px;
+            
+            font-size: 1.25rem;
+            color: #fff;
+            cursor: pointer;
+    
+            @include flex-center;
+    
+            .btn-span {
+                margin-left: 0.5rem;
+            }
+        }
+        .red-btn {
+            background-color: #cf2122;
+    
+            &:hover {
+                background-color: #c41f20;
+            }
+        }
+        .blue-btn {
+            background-color: #3298dc;
+    
+            &:hover {
+                background-color: #2793df;
+            }
+        }
+    }
+    .login-link {
+        @include flex-end;
+        margin-bottom: 1rem;
+
+        .login-devide {
+            margin: 0 0.5rem;
+        }
+    }
+
+}

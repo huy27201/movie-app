@@ -1,6 +1,12 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react'
 import axios from 'axios'
 import PosterList from '../Poster/PosterList'
+import queryString from 'query-string'
+
+const query = {
+    api_key: process.env.REACT_APP_API_KEY,
+    language: 'vi'
+}
 
 function HomePage() {
     const [reccomendList, setReccomendList] = useState([])
@@ -9,7 +15,7 @@ function HomePage() {
     
     const fetchFunc = (url, callback) => {
         axios.get(url)
-        .then(res => {
+        .then(res => {  
             const { results } = res.data
             callback(results)
         })
@@ -19,9 +25,10 @@ function HomePage() {
     }
 
     useEffect(() => {
-        const reccomendUrl = 'https://api.themoviedb.org/3/trending/all/week?api_key=93575fc50e306d7f610ab205e9f80ee4&language=vi'
-        const movieUrl = 'https://api.themoviedb.org/3/trending/movie/day?api_key=93575fc50e306d7f610ab205e9f80ee4&language=vi'
-        const tvUrl = 'https://api.themoviedb.org/3/trending/tv/day?api_key=93575fc50e306d7f610ab205e9f80ee4&language=vi'
+        const paramsFilters = queryString.stringify(query)
+        const reccomendUrl = `${process.env.REACT_APP_URL}/trending/all/week?${paramsFilters}`
+        const movieUrl = `${process.env.REACT_APP_URL}/trending/movie/day?${paramsFilters}`
+        const tvUrl = `${process.env.REACT_APP_URL}/trending/tv/day?${paramsFilters}`
         
         fetchFunc(reccomendUrl, setReccomendList)
         fetchFunc(movieUrl, setMovieList)

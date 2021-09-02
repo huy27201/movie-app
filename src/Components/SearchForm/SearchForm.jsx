@@ -22,7 +22,7 @@ function SearchForm(props) {
     }
     
     return (
-        <form action="">
+        <form>
             <input 
                 type = "text" 
                 placeholder = "Nhập tên phim..."

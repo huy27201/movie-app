@@ -28,6 +28,7 @@
     .detail-info {
         padding: 1.6rem 0;
         min-width: 0;
+        flex-grow: 1;
     }
     .detail-item {
         padding-left: 2rem;
@@ -233,6 +234,39 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             margin: 2rem 0 1.2rem;
+        }
+    }
+}
+.trailer-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+
+    background-color: rgba(10,10,10,.86);
+    transition: 0.5s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .trailer-exit {
+        position: absolute;
+        top: 2%;
+        right: 1%;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        .trailer-exit-btn {
+            transition: 0.3s ease;
+            color: #fff;
+            font-size: 1.25rem;
+        }
+        .trailer-exit-btn:hover {
+            color: rgba($color: #fff, $alpha: 0.7);
         }
     }
 }

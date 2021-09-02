@@ -71,8 +71,8 @@ function MoviePage() {
 
     useEffect(() => {
         const paramsFilters = queryString.stringify(filters);
-        const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=93575fc50e306d7f610ab205e9f80ee4&${paramsFilters}`
-
+        const movieUrl = `${process.env.REACT_APP_URL}/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&${paramsFilters}`
+        console.log(movieUrl);
         fetchFunc(movieUrl, setMovieList, setTotalPages) 
     }, [filters])
 

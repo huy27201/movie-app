@@ -37,7 +37,7 @@ function TVPage() {
 
     useEffect(() => {
         const paramsFilters = queryString.stringify(filters)
-        const tvUrl = `https://api.themoviedb.org/3/discover/tv?api_key=93575fc50e306d7f610ab205e9f80ee4&${paramsFilters}`
+        const tvUrl = `${process.env.REACT_APP_URL}/discover/tv?api_key=${process.env.REACT_APP_API_KEY}&${paramsFilters}`
 
         fetchFunc(tvUrl, setTvList, setTotalPages)
     }, [filters])

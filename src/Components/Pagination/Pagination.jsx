@@ -12,7 +12,6 @@ function Pagination(props) {
     }
     return (
         <div className="pagination-container">
-            <div className="pagination-list">a</div>
             <div className="pagination-list">
                 <a href="# " className="pag-btn" onClick={event => handleClick(event, props.page - 1)}>Trang trước</a>
                 <a href="# " className="pag-btn" onClick={event => handleClick(event, props.page + 1)}>Trang sau</a>
