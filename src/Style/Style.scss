@@ -1,3 +1,9 @@
+@mixin flex-center {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
 a {
     text-decoration: none;
     color: #FFF;
@@ -12,7 +18,7 @@ ul {
 form {
     margin: 1rem 0;
 }
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], input[type="email"] {
     font-size: 1.25rem;
     width: 100%;
     box-sizing: border-box;
@@ -71,4 +77,8 @@ Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 .notfound {
     text-align: center;
     margin: 1rem 0;
+}
+.loading {
+    min-height: 100vh;
+    @include flex-center;
 }

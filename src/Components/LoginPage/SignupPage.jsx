@@ -1,40 +1,43 @@
-import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import './LoginPage.scss'
+import React, { useState, useHistory } from 'react'
+import { Link } from 'react-router-dom'
 import { FaGoogle } from 'react-icons/fa'
 import { useAuth } from '../../Contexts/AuthContext'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import './LoginPage.scss'
 
 toast.configure()
 
-function LoginPage() {
+function SignupPage() {
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
-    const { login } = useAuth()
-    const history = useHistory()
-
-    async function handleSubmit(e) {    
+    const { signup } = useAuth()
+    const history = useHistory('/')
+    
+    async function handleSubmit(e) {
         e.preventDefault()
         try {
             setLoading(true)
-            await login(email, password)
+            await signup(email, password)
             history.push('/')
         }
         catch(err) {
-            toast.error(err.code)
+            toast.error(err.message)
         }
         setLoading(false)
     }
+    const handleName = e => {
+        const value = e.target.value
+        setName(value)
+    }
     const handleEmail = e => {
         const value = e.target.value
-        console.log(value);
         setEmail(value)
     }
     const handlePassword = e => {
         const value = e.target.value
-        console.log(value);
         setPassword(value)
     }
 
@@ -43,8 +46,17 @@ function LoginPage() {
             <div className="section">
                 <div className="flex-center">
                     <div className="box">
-                        <h1 className="login-title">Đăng nhập</h1>
+                        <h1 className="login-title">Đăng ký</h1>
                         <form className="form" onSubmit={handleSubmit}>
+                            <div className="field">
+                                <input 
+                                    type="text" 
+                                    placeholder="Họ tên" 
+                                    className="login-input" 
+                                    value={name}
+                                    onChange={handleName}
+                                />
+                            </div>
                             <div className="field">
                                 <input 
                                     type="email" 
@@ -67,16 +79,14 @@ function LoginPage() {
                                 <input type="checkbox" id="remember" className="login-checkbox"/>
                                 <label htmlFor="remember" className="label">Ghi nhớ</label>
                             </div>
-                            <button className="login-btn blue-btn" disabled={loading}>Đăng nhập</button>
+                            <button className="login-btn blue-btn" disabled={loading}>Đăng ký</button>
                             <button className="login-btn red-btn" disabled={loading}>
                                 <FaGoogle  />
                                 <span className="btn-span">Đăng nhập với Google</span>
                             </button>
                         </form>
                         <div className="login-link">
-                            <Link to="/signup" className="link">Đăng ký</Link>
-                            <span className="login-devide">|</span>
-                            <Link to="/" className='link'>Quên mật khẩu</Link>
+                            <Link to="/login" className="link">Đăng nhập</Link>
                         </div>
                     </div>
 
@@ -86,4 +96,4 @@ function LoginPage() {
     )
 }
 
-export default LoginPage
+export default SignupPage

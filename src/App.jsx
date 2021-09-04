@@ -9,12 +9,15 @@ import TVPage from './Components/TVPage/TVPage'
 import Footer from './Components/Footer/Footer'
 import NotFound from './Components/NotFound/NotFound'
 import ActorPage from './Components/ActorPage/ActorPage'
-import './Style/Style.scss'
 import LoginPage from './Components/LoginPage/LoginPage'
+import SignupPage from './Components/LoginPage/SignupPage'
+import './Style/Style.scss'
+import { AuthProvider } from './Contexts/AuthContext'
 
 function App() {
   return (
-      <Router>
+    <Router>
+      <AuthProvider>
         <div className="App">
           <Navbar />
           <Switch>
@@ -46,6 +49,10 @@ function App() {
               component = {LoginPage} 
             />
             <Route
+              path= "/signup" 
+              component = {SignupPage} 
+            />
+            <Route
               path= "/person/:id"
               component = {ActorPage} 
             />
@@ -59,7 +66,8 @@ function App() {
           </Switch>
           <Footer />
         </div>
-      </Router>
+      </AuthProvider>
+    </Router>
   );
 }
 

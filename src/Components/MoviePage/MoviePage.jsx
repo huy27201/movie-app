@@ -5,8 +5,11 @@ import Pagination from '../Pagination/Pagination'
 import Filters from '../Filters/Filters'
 import queryString from 'query-string'
 import { Link } from 'react-router-dom'
+import Loading from '../Loading/Loading'
+import FadeIn from 'react-fade-in'
 
 function MoviePage() {
+    const [loading, setLoading] = useState(false)
     const [movieList, setMovieList] = useState([])
     const [totalPages, setTotalPages] = useState(0)
     const [filters, setFilters] = useState({
@@ -25,7 +28,6 @@ function MoviePage() {
             page: 1
         })
     }
-
     const handleCountry = value => {
         setFilters({
             ...filters, 
@@ -70,6 +72,16 @@ function MoviePage() {
     }
 
     useEffect(() => {
+        setLoading(true)
+        const loadingTime = setTimeout(() => {
+            setLoading(false)
+        }, 1500)
+        return() => {
+            clearTimeout(loadingTime)
+        }
+    }, [])
+    
+    useEffect(() => {
         const paramsFilters = queryString.stringify(filters);
         const movieUrl = `${process.env.REACT_APP_URL}/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&${paramsFilters}`
         console.log(movieUrl);
@@ -77,20 +89,27 @@ function MoviePage() {
     }, [filters])
 
     return (
-        <div className="main-section">
-            <div className="section">
-                <h1 className="page-title">Phim lẻ</h1>
-                <Filters 
-                    handleSort = {handleSort} 
-                    handleCountry = {handleCountry} 
-                    handleGenre = {handleGenre}
-                    handleYear = {handleYear}
-                />
-                <PosterList list = {movieList} />
-                <Pagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} />
-                {movieList.length === 0 ? <div className="notfound">Không thấy phim bạn muốn xem? Hãy thử <Link to="#" className="link">yêu cầu phim</Link>!</div> : ''}
-            </div>
-        </div>
+        <>
+            { 
+                loading ? <Loading /> :
+                <div className="main-section">
+                    <div className="section">
+                        <FadeIn>
+                            <h1 className="page-title">Phim lẻ</h1>
+                            <Filters 
+                                handleSort = {handleSort} 
+                                handleCountry = {handleCountry} 
+                                handleGenre = {handleGenre}
+                                handleYear = {handleYear}
+                            />
+                            <PosterList list = {movieList} />
+                            <Pagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} />           
+                            {movieList.length === 0 ? <div className="notfound">Không thấy phim bạn muốn xem? Hãy thử <Link to="#" className="link">yêu cầu phim</Link>!</div> : ''}
+                        </FadeIn>
+                    </div>
+                </div>
+            }
+        </>
     )
 }
 

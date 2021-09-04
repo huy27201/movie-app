@@ -45,13 +45,13 @@ function SearchPage() {
 
     return (
         <div>
-            <div className="main-section">
+            <div className="main-section"> 
                 <div className="section">
-                    <SearchForm
-                        onSubmit = {handleFiltersChange}
-                    />
-                    {movieList.length > 0 ? <PosterList type="movie" list = {movieList} title = "Phim lẻ" /> : ''}
-                    {tvList.length > 0 ? <PosterList type="tv" list = {tvList} title = "Phim bộ" /> : ''}
+                        <SearchForm
+                            onSubmit = {handleFiltersChange}
+                        />
+                        {movieList.length > 0 ? <PosterList type="movie" list = {movieList} title = "Phim lẻ" /> : ''}
+                        {tvList.length > 0 ? <PosterList type="tv" list = {tvList} title = "Phim bộ" /> : ''}
                 </div>
             </div>
         </div>

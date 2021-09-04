@@ -3,8 +3,11 @@ import axios from 'axios'
 import PosterList from '../Poster/PosterList'
 import queryString from 'query-string'
 import Pagination from '../Pagination/Pagination'
+import Loading from '../Loading/Loading'
+import FadeIn from 'react-fade-in'
 
 function TVPage() {
+    const [loading, setLoading] = useState(false)
     const [tvList, setTvList] = useState([])
     const [totalPages, setTotalPages] = useState(0)
     const [filters, setFilters] = useState({
@@ -36,6 +39,16 @@ function TVPage() {
     }
 
     useEffect(() => {
+        setLoading(true)
+        const loadingTime = setTimeout(() => {
+            setLoading(false)
+        }, 1500)
+        return() => {
+            clearTimeout(loadingTime)
+        }
+    }, [])
+
+    useEffect(() => {
         const paramsFilters = queryString.stringify(filters)
         const tvUrl = `${process.env.REACT_APP_URL}/discover/tv?api_key=${process.env.REACT_APP_API_KEY}&${paramsFilters}`
 
@@ -43,13 +56,20 @@ function TVPage() {
     }, [filters])
 
     return (
-        <div className="main-section">
-            <div className="section">
-                <h1 className="page-title">Phim bộ</h1>
-                <PosterList list = { tvList } />
-                <Pagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} />
-            </div>
-        </div>
+        <>
+            {
+                loading ? <Loading /> :
+                <div className="main-section">
+                    <div className="section">
+                        <FadeIn>
+                            <h1 className="page-title">Phim bộ</h1>
+                            <PosterList list = { tvList } />
+                            <Pagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} />
+                        </FadeIn>
+                    </div>
+                </div>
+            }
+        </>
     )
 }
 
