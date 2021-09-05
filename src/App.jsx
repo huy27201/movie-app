@@ -11,6 +11,7 @@ import NotFound from './Components/NotFound/NotFound'
 import ActorPage from './Components/ActorPage/ActorPage'
 import LoginPage from './Components/LoginPage/LoginPage'
 import SignupPage from './Components/LoginPage/SignupPage'
+import ResetPassPage from './Components/LoginPage/ResetPassPage'
 import './Style/Style.scss'
 import { AuthProvider } from './Contexts/AuthContext'
 
@@ -51,6 +52,10 @@ function App() {
             <Route
               path= "/signup" 
               component = {SignupPage} 
+            />
+            <Route
+              path= "/forgot" 
+              component = {ResetPassPage} 
             />
             <Route
               path= "/person/:id"

@@ -1,6 +1,6 @@
 import './LoginPage.scss'
-import React, { useState, useHistory } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { FaGoogle } from 'react-icons/fa'
 import { useAuth } from '../../Contexts/AuthContext'
 import { toast } from 'react-toastify'
@@ -14,7 +14,7 @@ function SignupPage() {
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const { signup } = useAuth()
-    const history = useHistory('/')
+    const history = useHistory()
     
     async function handleSubmit(e) {
         e.preventDefault()
@@ -24,9 +24,10 @@ function SignupPage() {
             history.push('/')
         }
         catch(err) {
-            toast.error(err.message)
+            toast.error('Đăng ký thất bại.')
+            setLoading(false)
         }
-        setLoading(false)
+
     }
     const handleName = e => {
         const value = e.target.value

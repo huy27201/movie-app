@@ -3,13 +3,22 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import NotFound from '../NotFound/NotFound'
 import ActorImageList from './ActorImageList'
+import queryString from 'query-string'
+import Loading from '../Loading/Loading'
+import FadeIn from 'react-fade-in'
 import './ActorPage.scss'
+
+const query = {
+    api_key: process.env.REACT_APP_API_KEY,
+    language: 'vi'
+}
 
 function ActorPage() {
     const { id } = useParams()
     const [profile, setProfile] = useState({})
     const [images, setImages] = useState({})
     const [checkParams, setCheckParams] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const fetchFunc = (url, callback) => {
         axios.get(url)
@@ -22,29 +31,38 @@ function ActorPage() {
         })  
     }
     useEffect(() => {
-        const url = `https://api.themoviedb.org/3/person/${id}?api_key=93575fc50e306d7f610ab205e9f80ee4&language=vi`
+        setLoading(true)
+        const loadingTime = setTimeout(()=> {
+            setLoading(false)
+        }, 2000)
+        const paramsFilters = queryString.stringify(query)
+        const url = `${process.env.REACT_APP_URL}/person/${id}?${paramsFilters}`
         axios.get(url)
         .then(res => {
-            console.log(res.data);
             setProfile(res.data)
             setCheckParams(true)
         })
         .catch(err => {
             setCheckParams(false)
         })  
+
+        return () => {
+            clearTimeout(loadingTime)
+        }
     }, [])
     useEffect(() => {
         if (checkParams) {
-            const imageUrl = `https://api.themoviedb.org/3/person/${id}/images?api_key=93575fc50e306d7f610ab205e9f80ee4&language=vi`
+            const paramsFilters = queryString.stringify(query)
+            const imageUrl = `${process.env.REACT_APP_URL}/person/${id}/images?${paramsFilters}`
             fetchFunc(imageUrl, setImages)
         }
-
     }, [checkParams])
     return (
         <>
             {
-                checkParams ? 
-                    <>
+                loading ? <Loading /> :
+                    checkParams ? 
+                    <FadeIn>
                         <div className="main-section">
                             <div className="section">
                                 <div className="detail actor-neg">
@@ -95,7 +113,7 @@ function ActorPage() {
                                 </div>
                             </div>
                         </div>
-                    </> : <NotFound />
+                    </FadeIn> : <NotFound />
             }
         </>
         

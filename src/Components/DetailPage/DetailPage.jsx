@@ -8,7 +8,9 @@ import TrailerDetail from './TrailerDetail'
 import { Link } from 'react-router-dom'
 import { FaPlay, FaFacebookSquare, FaPlus } from 'react-icons/fa'
 import { IconContext } from 'react-icons'
+import Loading from '../Loading/Loading'
 import './DetailPage.scss'
+
 
 function DetailPage() {
     const { type, id } = useParams()
@@ -16,6 +18,7 @@ function DetailPage() {
     const [credits, setCredits] = useState({})
     const [trailers, setTrailers] = useState({})
     const [trailerKey, setTrailerKey] = useState('')
+    const [loading, setLoading] = useState(false)
     const [checkParams, setCheckParams] = useState(false)
 
     const handleTrailer = key => {
@@ -33,24 +36,31 @@ function DetailPage() {
         })  
     }
     useEffect(() => {
-        const filmUrl = `https://api.themoviedb.org/3/${type}/${id}?api_key=93575fc50e306d7f610ab205e9f80ee4&language=vi`
+        setLoading(true)
+        const loadingTime = setTimeout(()=> {
+            setLoading(false)
+        }, 2000)
+        const filmUrl = `https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=vi`
         axios.get(filmUrl)
         .then(res => {
-            console.log(res.data);
             setData(res.data)
             setCheckParams(true)
         })
         .catch(err => {
             setCheckParams(false)
         })  
+
+        return () => {
+            clearTimeout(loadingTime)
+        }
     }, [])
 
     useEffect (() => {
         if (checkParams) {
-            const creditUrl = `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=93575fc50e306d7f610ab205e9f80ee4&language=vi`
+            const creditUrl = `${process.env.REACT_APP_URL}/${type}/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=vi`
             fetchFunc(creditUrl, setCredits)
 
-            const trailerUrl = `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=93575fc50e306d7f610ab205e9f80ee4&language=en`
+            const trailerUrl = `${process.env.REACT_APP_URL}/${type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en`
             fetchFunc(trailerUrl, setTrailers)
         }
     }, [checkParams])
@@ -58,7 +68,8 @@ function DetailPage() {
     return (
         <>
             {
-                checkParams ? 
+                loading ? <Loading /> : 
+                    checkParams ? 
                     <>
                         <div 
                             className="background" 

@@ -1,5 +1,3 @@
-
-
 .navbar {
     position: fixed;
     top: 0;
@@ -12,9 +10,11 @@
 
     #nav-brand {
         flex: 0 0 auto;
+        display: flex;
+        align-items: center;
 
         #nav-logo { 
-            padding: 0.9rem 0.75rem;
+            padding: 0.75rem 0.75rem;
             display: flex;
             align-items: center;
             img {
@@ -32,27 +32,6 @@
         #nav-list {
             display: flex;
 
-            li {
-                display: flex;
-            }
-
-            .nav-item {
-                padding: 0.5rem 0.75rem;
-                display: flex;
-                align-items: center;
-                transition: 0.3s ease;
-
-                &:hover {
-                    background-color: #102c48;
-                    color: #428bca;
-                }
-                span {
-                    margin-left: 0.3rem;
-                }
-            }
-            .active {
-                color: #428bca;
-            }
         }
 
         #nav-btn-container {
@@ -60,7 +39,7 @@
 
             .nav-btn {
                 background-color: #cf2122;
-                padding: 0.6rem 1.1rem;
+                padding: 0.575rem 1.1rem;
                 border-radius: 4px;
                 text-align: center;
 
@@ -72,6 +51,80 @@
         
     }
 }
+.nav-li {
+    display: flex;
+}
+
+.nav-item {
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    align-items: center;
+    transition: 0.3s ease;
+
+    &:hover {
+        background-color: #102c48;
+        color: #428bca;
+    }
+    span {
+        margin-left: 0.3rem;
+    }
+}
+.active {
+    color: #428bca;
+}
+.nav-profile {
+    position: relative;
+
+    &:hover {
+        background-color: #102c48;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    
+        span {
+            margin-right: 0.25rem;
+        }
+        .nav-profile-icon {
+            margin: 0 0.25rem;
+        }
+    }
+    .profile-list {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: auto;
+        background-color: #242424;
+        display: none;
+        line-height: 1.5;
+        
+
+        .profile-li {
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            transition: 0.3s ease;
+            white-space: nowrap;
+
+            &:hover, &:hover .profile-icon {
+                background-color: #f5f5f5;
+                color: #0a0a0a;
+            }
+
+            .profile-icon {
+                margin-right: 0.75rem;
+                color: #fff;
+                size: 1.25rem;
+            }
+        }
+    }
+
+    &:hover .profile-list {
+        display: block;
+    }
+}
 .navbar-purple {
-    background-color: rgba(51,10,103,.93);
+    background-color: rgba(51, 10, 103, .93);
 }

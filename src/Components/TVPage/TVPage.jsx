@@ -42,7 +42,7 @@ function TVPage() {
         setLoading(true)
         const loadingTime = setTimeout(() => {
             setLoading(false)
-        }, 1500)
+        }, 2000)
         return() => {
             clearTimeout(loadingTime)
         }
@@ -59,15 +59,15 @@ function TVPage() {
         <>
             {
                 loading ? <Loading /> :
-                <div className="main-section">
-                    <div className="section">
-                        <FadeIn>
-                            <h1 className="page-title">Phim bộ</h1>
-                            <PosterList list = { tvList } />
-                            <Pagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} />
-                        </FadeIn>
+                <FadeIn>
+                    <div className="main-section">
+                        <div className="section">
+                                <h1 className="page-title">Phim bộ</h1>
+                                <PosterList list = { tvList } />
+                                <Pagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} />
+                        </div>
                     </div>
-                </div>
+                </FadeIn>
             }
         </>
     )

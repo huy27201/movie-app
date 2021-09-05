@@ -6,7 +6,7 @@ function Loading({ loading }) {
         <div className="loading">
             <PuffLoader
                 color='#fff'
-                size='100'
+                size='100px'
             />
         </div>
     )

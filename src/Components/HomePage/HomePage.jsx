@@ -31,7 +31,7 @@ function HomePage() {
         setLoading(true)
         const loadingTime = setTimeout(()=> {
             setLoading(false)
-        }, 1500)
+        }, 2000)
         const paramsFilters = queryString.stringify(query)
         const reccomendUrl = `${process.env.REACT_APP_URL}/trending/all/week?${paramsFilters}`
         const movieUrl = `${process.env.REACT_APP_URL}/trending/movie/day?${paramsFilters}`
@@ -50,27 +50,27 @@ function HomePage() {
         <>
             {   
                 loading ? <Loading /> :
-                <div className="main-section">
-                    <div className="section">
-                        <FadeIn>
-                            <PosterList 
-                                list = {reccomendList} 
-                                title = "Phim đề cử" 
-                                limit= {5}
-                            />
-                            <PosterList 
-                                list = {movieList} 
-                                title = "Phim lẻ mới cập nhật" 
-                                limit = {10}
-                            />
-                            <PosterList 
-                                list = {tvList} 
-                                title = "Phim bộ mới cập nhật" 
-                                limit={10}
-                            />
-                        </FadeIn>
+                <FadeIn>
+                    <div className="main-section">
+                        <div className="section">
+                                <PosterList 
+                                    list = {reccomendList} 
+                                    title = "Phim đề cử" 
+                                    limit= {5}
+                                />
+                                <PosterList 
+                                    list = {movieList} 
+                                    title = "Phim lẻ mới cập nhật" 
+                                    limit = {10}
+                                />
+                                <PosterList 
+                                    list = {tvList} 
+                                    title = "Phim bộ mới cập nhật" 
+                                    limit={10}
+                                />
+                        </div>
                     </div>
-                </div>
+                </FadeIn>
             }
         </>
     )

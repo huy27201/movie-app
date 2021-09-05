@@ -75,7 +75,7 @@ function MoviePage() {
         setLoading(true)
         const loadingTime = setTimeout(() => {
             setLoading(false)
-        }, 1500)
+        }, 2000)
         return() => {
             clearTimeout(loadingTime)
         }
@@ -92,22 +92,22 @@ function MoviePage() {
         <>
             { 
                 loading ? <Loading /> :
-                <div className="main-section">
-                    <div className="section">
-                        <FadeIn>
-                            <h1 className="page-title">Phim lẻ</h1>
-                            <Filters 
-                                handleSort = {handleSort} 
-                                handleCountry = {handleCountry} 
-                                handleGenre = {handleGenre}
-                                handleYear = {handleYear}
-                            />
-                            <PosterList list = {movieList} />
-                            <Pagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} />           
-                            {movieList.length === 0 ? <div className="notfound">Không thấy phim bạn muốn xem? Hãy thử <Link to="#" className="link">yêu cầu phim</Link>!</div> : ''}
-                        </FadeIn>
+                <FadeIn>
+                    <div className="main-section">
+                        <div className="section">
+                                <h1 className="page-title">Phim lẻ</h1>
+                                <Filters 
+                                    handleSort = {handleSort} 
+                                    handleCountry = {handleCountry} 
+                                    handleGenre = {handleGenre}
+                                    handleYear = {handleYear}
+                                />
+                                <PosterList list = {movieList} />
+                                <Pagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} />           
+                                {movieList.length === 0 ? <div className="notfound">Không thấy phim bạn muốn xem? Hãy thử <Link to="#" className="link">yêu cầu phim</Link>!</div> : ''}
+                        </div>
                     </div>
-                </div>
+                </FadeIn>
             }
         </>
     )

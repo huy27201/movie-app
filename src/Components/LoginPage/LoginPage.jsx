@@ -23,18 +23,16 @@ function LoginPage() {
             history.push('/')
         }
         catch(err) {
-            toast.error(err.code)
+            toast.error('Đăng nhập thất bại.')
+            setLoading(false)
         }
-        setLoading(false)
     }
     const handleEmail = e => {
         const value = e.target.value
-        console.log(value);
         setEmail(value)
     }
     const handlePassword = e => {
         const value = e.target.value
-        console.log(value);
         setPassword(value)
     }
 
@@ -76,7 +74,7 @@ function LoginPage() {
                         <div className="login-link">
                             <Link to="/signup" className="link">Đăng ký</Link>
                             <span className="login-devide">|</span>
-                            <Link to="/" className='link'>Quên mật khẩu</Link>
+                            <Link to="/forgot" className='link'>Quên mật khẩu</Link>
                         </div>
                     </div>
 
