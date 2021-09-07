@@ -1,5 +1,5 @@
 import './LoginPage.scss'
-import React, { useState, useHistory } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../Contexts/AuthContext'
 import { toast } from 'react-toastify'
@@ -35,7 +35,9 @@ function ResetPassPage() {
             <div className="section">
                 <div className="flex-center">
                     <div className="box">
-                        <h1 className="login-title">Lấy lại mật khẩu</h1>
+                        <h1 className="login-title">
+                            Lấy lại mật khẩu
+                        </h1>
                         <form className="form" onSubmit={handleSubmit}>
                             <div className="field">
                                 <input 

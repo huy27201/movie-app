@@ -1,10 +1,9 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Link, NavLink, useHistory } from 'react-router-dom'
 import Logo from '../../Assets/img/Logo.png'
 import './Navbar.scss'
 import { IconContext } from 'react-icons'
-import  { FaSearch, FaChevronDown, FaFilm, FaSignOutAlt } from 'react-icons/fa'
+import { FaSearch, FaChevronDown, FaFilm, FaSignOutAlt } from 'react-icons/fa'
 import { useAuth } from '../../Contexts/AuthContext'
 import { toast } from 'react-toastify'
 
@@ -20,13 +19,13 @@ function Navbar() {
         height > 50 ? setActive(true) : setActive(false)
     })
 
-    async function handleLogOut() {
+    const handleLogOut = async () => {
         try {
             await logout()
-            history.push('/')
+            history.push('/login')
         }
         catch(err) {
-            toast.error(err.message)
+            toast.error('Đăng xuất thất bại.')
         }
     }
 
@@ -69,7 +68,7 @@ function Navbar() {
                             <IconContext.Provider value={{color: '#428bca', size: '1rem'}}>
                                 <div className="nav-item">
                                     <span>
-                                        {currentUser.email}
+                                        {currentUser.displayName}
                                     </span>
                                     <FaChevronDown
                                         className="nav-profile-icon"
@@ -79,7 +78,7 @@ function Navbar() {
                             <IconContext.Provider value={{className: 'profile-icon'}}>
                                 <ul className="profile-list">
                                     <li>
-                                        <Link to="/lib" className="profile-li">
+                                        <Link to="/collection" className="profile-li">
                                             <FaFilm />
                                             Bộ sưu tập
                                         </Link>

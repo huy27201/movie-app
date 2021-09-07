@@ -74,6 +74,7 @@
 }
 .nav-profile {
     position: relative;
+    transition: 0.3s ease;
 
     &:hover {
         background-color: #102c48;

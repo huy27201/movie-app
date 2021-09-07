@@ -15,7 +15,7 @@ function LoginPage() {
     const { login } = useAuth()
     const history = useHistory()
 
-    async function handleSubmit(e) {    
+    const handleSubmit = async e => {    
         e.preventDefault()
         try {
             setLoading(true)
@@ -66,7 +66,7 @@ function LoginPage() {
                                 <label htmlFor="remember" className="label">Ghi nhớ</label>
                             </div>
                             <button className="login-btn blue-btn" disabled={loading}>Đăng nhập</button>
-                            <button className="login-btn red-btn" disabled={loading}>
+                            <button className="login-btn red-btn" disabled>
                                 <FaGoogle  />
                                 <span className="btn-span">Đăng nhập với Google</span>
                             </button>

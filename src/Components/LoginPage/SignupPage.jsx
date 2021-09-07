@@ -16,15 +16,16 @@ function SignupPage() {
     const { signup } = useAuth()
     const history = useHistory()
     
-    async function handleSubmit(e) {
+    const handleSubmit = async e => {
         e.preventDefault()
         try {
             setLoading(true)
-            await signup(email, password)
+            await signup(name, email, password)
             history.push('/')
         }
         catch(err) {
-            toast.error('Đăng ký thất bại.')
+            toast.error(err.message)
+            console.log(err)
             setLoading(false)
         }
 
@@ -81,7 +82,7 @@ function SignupPage() {
                                 <label htmlFor="remember" className="label">Ghi nhớ</label>
                             </div>
                             <button className="login-btn blue-btn" disabled={loading}>Đăng ký</button>
-                            <button className="login-btn red-btn" disabled={loading}>
+                            <button className="login-btn red-btn" disabled>
                                 <FaGoogle  />
                                 <span className="btn-span">Đăng nhập với Google</span>
                             </button>

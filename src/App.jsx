@@ -12,6 +12,8 @@ import ActorPage from './Components/ActorPage/ActorPage'
 import LoginPage from './Components/LoginPage/LoginPage'
 import SignupPage from './Components/LoginPage/SignupPage'
 import ResetPassPage from './Components/LoginPage/ResetPassPage'
+import Collection from './Components/Collection/Collection'
+import PrivateRoute from './Route/PrivateRoute'
 import './Style/Style.scss'
 import { AuthProvider } from './Contexts/AuthContext'
 
@@ -56,6 +58,10 @@ function App() {
             <Route
               path= "/forgot" 
               component = {ResetPassPage} 
+            />
+            <PrivateRoute
+              path= "/collection" 
+              component = {Collection} 
             />
             <Route
               path= "/person/:id"

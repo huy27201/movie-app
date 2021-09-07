@@ -76,6 +76,7 @@ function MoviePage() {
         const loadingTime = setTimeout(() => {
             setLoading(false)
         }, 2000)
+        
         return() => {
             clearTimeout(loadingTime)
         }
@@ -84,7 +85,7 @@ function MoviePage() {
     useEffect(() => {
         const paramsFilters = queryString.stringify(filters);
         const movieUrl = `${process.env.REACT_APP_URL}/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&${paramsFilters}`
-        console.log(movieUrl);
+
         fetchFunc(movieUrl, setMovieList, setTotalPages) 
     }, [filters])
 
