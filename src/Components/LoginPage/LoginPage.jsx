@@ -12,15 +12,25 @@ function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
-    const { login } = useAuth()
+    const { login, googleLogin } = useAuth()
     const history = useHistory()
 
-    const handleSubmit = async e => {    
+    const handleSubmit = async e => {   
         e.preventDefault()
         try {
             setLoading(true)
-            await login(email, password)
-            history.push('/')
+            switch (e.nativeEvent.submitter.name) {
+                case 'email':
+                    await login(email, password)
+                    history.push('/')
+                    break
+                case 'google':
+                    await googleLogin()
+                    history.push('/')
+                    break
+                default:
+                    break
+            }
         }
         catch(err) {
             toast.error('Đăng nhập thất bại.')
@@ -65,8 +75,18 @@ function LoginPage() {
                                 <input type="checkbox" id="remember" className="login-checkbox"/>
                                 <label htmlFor="remember" className="label">Ghi nhớ</label>
                             </div>
-                            <button className="login-btn blue-btn" disabled={loading}>Đăng nhập</button>
-                            <button className="login-btn red-btn" disabled>
+                            <button
+                                className="login-btn blue-btn" 
+                                disabled={loading}
+                                name="email"
+                            >
+                                Đăng nhập
+                            </button>
+                            <button 
+                                className="login-btn red-btn"
+                                disabled={loading}
+                                name="google"
+                            >
                                 <FaGoogle  />
                                 <span className="btn-span">Đăng nhập với Google</span>
                             </button>

@@ -29,7 +29,7 @@ function HomePage() {
 
     useEffect(() => {
         setLoading(true)
-        const loadingTime = setTimeout(()=> {
+        const loadingTime = setTimeout(() => {
             setLoading(false)
         }, 2000)
         const paramsFilters = queryString.stringify(query)
@@ -56,7 +56,7 @@ function HomePage() {
                                 <PosterList 
                                     list = {reccomendList} 
                                     title = "Phim đề cử" 
-                                    limit= {5}
+                                    limit = {5}
                                 />
                                 <PosterList 
                                     list = {movieList} 
@@ -66,7 +66,7 @@ function HomePage() {
                                 <PosterList 
                                     list = {tvList} 
                                     title = "Phim bộ mới cập nhật" 
-                                    limit={10}
+                                    limit = {10}
                                 />
                         </div>
                     </div>

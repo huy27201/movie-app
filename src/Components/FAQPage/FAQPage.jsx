@@ -8,7 +8,7 @@ function FAQPage() {
         <div className="main-section">
             <div className="section">
                 <FadeIn>
-                    <h1 className="faq-title">Câu hỏi thường gặp</h1>
+                    <h1 className="title">Câu hỏi thường gặp</h1>
                         <div className="faq-item">
                             <h3 className="faq-question">1. Xem phim bị chậm, mặc dù đã kích hoạt VIP Mode cho phim đó?</h3>
                             <p className="faq-answer">Nếu phim chạy nhưng cứ một đoạn lại bị dừng để chờ load tiếp (dù đã thử chọn các server khác nhau), cần xác định do thiết bị hay do mạng của bạn.</p>

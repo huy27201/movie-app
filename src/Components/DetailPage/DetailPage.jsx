@@ -1,54 +1,105 @@
-import React, {useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 import axios from 'axios'
 import NotFound from '../NotFound/NotFound'
 import Cast from './Cast'
 import Trailer from './Trailer'
 import TrailerDetail from './TrailerDetail'
-import { Link } from 'react-router-dom'
-import { FaPlay, FaFacebookSquare, FaPlus } from 'react-icons/fa'
+import { Link, useHistory } from 'react-router-dom'
+import { FaPlay, FaFacebookSquare, FaPlus, FaEye } from 'react-icons/fa'
 import { IconContext } from 'react-icons'
 import Loading from '../Loading/Loading'
+import { useStore } from '../../Contexts/StoreContext'
+import { useAuth } from '../../Contexts/AuthContext'
 import './DetailPage.scss'
+import { toast } from 'react-toastify'
 
+toast.configure()
 
 function DetailPage() {
+    const { addFilm, removeFilm, getFilmById } = useStore()
+    const { currentUser } = useAuth()
     const { type, id } = useParams()
+
     const [data, setData] = useState({})
     const [credits, setCredits] = useState({})
     const [trailers, setTrailers] = useState({})
     const [trailerKey, setTrailerKey] = useState('')
+    const [btnWatch, setBtnWatch] = useState(false)
     const [loading, setLoading] = useState(false)
     const [checkParams, setCheckParams] = useState(false)
+
+    const history = useHistory()
+    const btnClass = ['detail-btn']
+
+    currentUser && btnWatch ? btnClass.push('detail-watched') : btnClass.push('detail-alb')
 
     const handleTrailer = key => {
         console.log(key)
         setTrailerKey(key)
     }
+    const handleCollection = async () => {
+        if (currentUser) {
+            if (!btnWatch) {
+                try {
+                    await addFilm(data, type)
+                    setBtnWatch(!btnWatch)
+                    toast.success('Thêm vào bộ sưu tập thành công.')
+                }
+                catch(err) {
+                    toast.error('Thêm vào bộ sưu tập thất bại. Vui lòng thử lại sau.')
+                }
+            }
+            else {
+                try {
+                    await removeFilm(data.id)
+                    setBtnWatch(!btnWatch)
+                    toast.success('Xoá khỏi bộ sưu tập thành công.')
+                }
+                catch(err) {
+                    toast.error('Xóa khỏi bộ sưu tập thất bại. Vui lòng thử lại sau.')
+                }
+            }
+        } 
+        else history.push('/login')
+    }
     const fetchFunc = (url, callback) => {
         axios.get(url)
         .then(res => {
-            console.log(res.data);
+            console.log(res.data)
             callback(res.data)
         })
         .catch(err => {
             console.log(err)
         })  
     }
+    const getFilm = async () => {
+        try {
+            await getFilmById(id)
+            .then(res => {
+                res.exists() ? setBtnWatch(true) : setBtnWatch(false)
+            })
+        } catch(err) {
+            console.log(err)
+        }
+    }
     useEffect(() => {
         setLoading(true)
         const loadingTime = setTimeout(()=> {
             setLoading(false)
         }, 2000)
-        const filmUrl = `https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=vi`
+        const filmUrl = `${process.env.REACT_APP_URL}/${type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=vi`
         axios.get(filmUrl)
         .then(res => {
+            console.log(data)
             setData(res.data)
             setCheckParams(true)
         })
         .catch(err => {
             setCheckParams(false)
-        })  
+        }) 
+        
+        getFilm()
 
         return () => {
             clearTimeout(loadingTime)
@@ -107,14 +158,23 @@ function DetailPage() {
                                         <div className="detail-links">
                                             <IconContext.Provider value={{color: '#fff', size: '1.25rem'}}>
                                                 <div className="detail-btns">
-                                                    <Link to="/" className="detail-btn detail-share">
+                                                    <button className="detail-btn detail-share">
                                                         <FaFacebookSquare />
                                                         <span>Chia sẻ</span>
-                                                    </Link>
-                                                    <Link to="/" className="detail-btn detail-alb">
-                                                        <FaPlus />
-                                                        <span>Bộ sưu tập</span>
-                                                    </Link>
+                                                    </button>
+                                                    <button className={btnClass.join(' ')} onClick={handleCollection}>
+                                                        { 
+                                                            (currentUser && btnWatch) ? 
+                                                            <>
+                                                                <FaEye />
+                                                                <span>Xóa khỏi bộ sưu tập</span>
+                                                            </> :
+                                                            <>
+                                                                <FaPlus />
+                                                                <span>Bộ sưu tập</span>
+                                                            </> 
+                                                        }
+                                                    </button>
                                                 </div>
                                             </IconContext.Provider>
                                             <div className="detail-genres">
@@ -135,7 +195,7 @@ function DetailPage() {
                                                 <p className="detail-value">
                                                     {
                                                         data.production_companies.map(
-                                                            (item, index) => item.name + (index < data.production_companies.length - 1 ? ", " : '')
+                                                            (item, index) => item.name + (index < data.production_companies.length - 1 ? ', ' : '')
                                                         )
                                                     }
                                                 </p>
@@ -145,7 +205,7 @@ function DetailPage() {
                                                 <p className="detail-value">
                                                     {
                                                         data.production_countries.map(
-                                                            (item, index) => item.name + (index < data.production_countries.length - 1 ? ", " : '')
+                                                            (item, index) => item.name + (index < data.production_countries.length - 1 ? ', ' : '')
                                                         )
                                                     }
                                                 </p>

@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { AuthProvider } from './Contexts/AuthContext'
+import { StoreProvider } from './Contexts/StoreContext'
 import FAQPage from './Components/FAQPage/FAQPage'
 import DetailPage from './Components/DetailPage/DetailPage'
 import HomePage from './Components/HomePage/HomePage'
@@ -15,68 +17,72 @@ import ResetPassPage from './Components/LoginPage/ResetPassPage'
 import Collection from './Components/Collection/Collection'
 import PrivateRoute from './Route/PrivateRoute'
 import './Style/Style.scss'
-import { AuthProvider } from './Contexts/AuthContext'
+
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <div className="App">
-          <Navbar />
-          <Switch>
-            <Route 
-              exact 
-              path = "/" 
-              component = {HomePage} 
-            />
-            <Route 
-              path = "/search" 
-              component = {SearchPage} 
-            />
-            <Route
-              exact
-              path= "/movie" 
-              component = {MoviePage}
-            />
-            <Route
-              exact
-              path= "/tv" 
-              component = {TVPage} 
-            />
-            <Route
-              path= "/faq" 
-              component = {FAQPage} 
-            />
-            <Route
-              path= "/login" 
-              component = {LoginPage} 
-            />
-            <Route
-              path= "/signup" 
-              component = {SignupPage} 
-            />
-            <Route
-              path= "/forgot" 
-              component = {ResetPassPage} 
-            />
-            <PrivateRoute
-              path= "/collection" 
-              component = {Collection} 
-            />
-            <Route
-              path= "/person/:id"
-              component = {ActorPage} 
-            />
-            <Route
-              path= "/:type/:id"
-              component = {DetailPage} 
-            />
-            <Route
-              component={NotFound}
-            />
-          </Switch>
-          <Footer />
-        </div>
+        <StoreProvider>
+          <div className="App">
+            <Navbar />
+            <Switch>
+              <Route 
+                exact 
+                path = "/" 
+                component = {HomePage} 
+              />
+              <Route 
+                path = "/search" 
+                component = {SearchPage} 
+              />
+              <Route
+                exact
+                path= "/movie" 
+                component = {MoviePage}
+              />
+              <Route
+                exact
+                path= "/tv" 
+                component = {TVPage} 
+              />
+              <Route
+                path= "/faq" 
+                component = {FAQPage} 
+              />
+              <Route
+                path= "/login" 
+                component = {LoginPage} 
+              />
+              <Route
+                path= "/signup" 
+                component = {SignupPage} 
+              />
+              <Route
+                path= "/forgot" 
+                component = {ResetPassPage} 
+              />
+              <PrivateRoute
+                path= "/collection" 
+                component = {Collection} 
+              />
+              <Route
+                exact
+                path= "/person/:id"
+                component = {ActorPage} 
+              />
+              <Route
+                exact
+                path= "/:type/:id"
+                component = {DetailPage} 
+              />
+              <Route
+                component={NotFound}
+              />
+            </Switch>
+            <Footer />
+          </div>
+        </StoreProvider>
       </AuthProvider>
     </Router>
   );

@@ -1,27 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, NavLink, useHistory } from 'react-router-dom'
 import Logo from '../../Assets/img/Logo.png'
 import './Navbar.scss'
 import { IconContext } from 'react-icons'
 import { FaSearch, FaChevronDown, FaFilm, FaSignOutAlt } from 'react-icons/fa'
 import { useAuth } from '../../Contexts/AuthContext'
+import { useStore } from '../../Contexts/StoreContext'
 import { toast } from 'react-toastify'
 
 toast.configure()
 
 function Navbar() {
     const { currentUser, logout } = useAuth()
+    const { resetCollection } = useStore()
     const [active, setActive] = useState(false)
     const history = useHistory()
-    
-    window.addEventListener("scroll", event => {
-        let height = window.pageYOffset
-        height > 50 ? setActive(true) : setActive(false)
+
+    useEffect(() => {
+        const scrollEffect = window.addEventListener("scroll", event => {
+            const height = window.pageYOffset
+            height > 50 ? setActive(true) : setActive(false)
+        })
+
+        return () => window.removeEventListener("scroll", scrollEffect)
     })
 
     const handleLogOut = async () => {
         try {
             await logout()
+            await resetCollection()
             history.push('/login')
         }
         catch(err) {
