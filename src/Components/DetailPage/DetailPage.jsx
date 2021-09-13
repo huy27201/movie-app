@@ -13,6 +13,7 @@ import { useStore } from '../../Contexts/StoreContext'
 import { useAuth } from '../../Contexts/AuthContext'
 import './DetailPage.scss'
 import { toast } from 'react-toastify'
+import {FacebookShareButton} from 'react-share'
 
 toast.configure()
 
@@ -74,14 +75,11 @@ function DetailPage() {
         })  
     }
     const getFilm = async () => {
-        try {
-            await getFilmById(id)
-            .then(res => {
-                res.exists() ? setBtnWatch(true) : setBtnWatch(false)
-            })
-        } catch(err) {
-            console.log(err)
-        }
+        await getFilmById(id)
+        .then(res => {
+            res.exists() ? setBtnWatch(true) : setBtnWatch(false)
+        })
+        .catch(err => {})
     }
     useEffect(() => {
         setLoading(true)
@@ -158,10 +156,14 @@ function DetailPage() {
                                         <div className="detail-links">
                                             <IconContext.Provider value={{color: '#fff', size: '1.25rem'}}>
                                                 <div className="detail-btns">
-                                                    <button className="detail-btn detail-share">
+                                                    <FacebookShareButton 
+                                                        resetButtonStyle={false} 
+                                                        className="detail-btn detail-share"
+                                                        url={`huy27201-movie-app.herokuapp.com/${type}/${id}`}
+                                                    >
                                                         <FaFacebookSquare />
                                                         <span>Chia sẻ</span>
-                                                    </button>
+                                                    </FacebookShareButton>
                                                     <button className={btnClass.join(' ')} onClick={handleCollection}>
                                                         { 
                                                             (currentUser && btnWatch) ? 

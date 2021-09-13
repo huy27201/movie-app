@@ -31,18 +31,23 @@ export function StoreProvider({ children }) {
     }
     const getFilms = () => {
         const list = []
-        const col = collection(firestore, `users/${currentUser.uid}/films`)
-        return getDocs(col)
-        .then(querySnapshot => {
-            querySnapshot.forEach(doc => list.push(doc.data()))
-        })
-        .then(() => {
-            setFilmCollection(list)
-        })
+        if(currentUser) {
+            const col = collection(firestore, `users/${currentUser.uid}/films`)
+            return getDocs(col)
+            .then(querySnapshot => {
+                querySnapshot.forEach(doc => list.push(doc.data()))
+            })
+            .then(() => {
+                setFilmCollection(list)
+            })
+        }
     }
     const getFilmById = id => {
-        const userFilmDoc = doc(firestore, `users/${currentUser.uid}/films`, id.toString())
-        return getDoc(userFilmDoc)
+        if (currentUser) {
+            const userFilmDoc = doc(firestore, `users/${currentUser.uid}/films`, id.toString())
+            return getDoc(userFilmDoc)
+        }
+        return Promise.reject(new Error())
     }
     const resetCollection = () => {
         setFilmCollection([])
