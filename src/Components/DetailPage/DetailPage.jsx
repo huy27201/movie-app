@@ -14,6 +14,7 @@ import { useAuth } from '../../Contexts/AuthContext'
 import './DetailPage.scss'
 import { toast } from 'react-toastify'
 import {FacebookShareButton} from 'react-share'
+import FadeIn from 'react-fade-in'
 
 toast.configure()
 
@@ -27,8 +28,8 @@ function DetailPage() {
     const [trailers, setTrailers] = useState({})
     const [trailerKey, setTrailerKey] = useState('')
     const [btnWatch, setBtnWatch] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [checkParams, setCheckParams] = useState(false)
+    const [loading, setLoading] = useState(true)
+    const [checkParams, setCheckParams] = useState(true)
 
     const history = useHistory()
     const btnClass = ['detail-btn']
@@ -64,62 +65,51 @@ function DetailPage() {
         } 
         else history.push('/login')
     }
-    const fetchFunc = (url, callback) => {
-        axios.get(url)
-        .then(res => {
-            console.log(res.data)
-            callback(res.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })  
-    }
     const getFilm = async () => {
         await getFilmById(id)
         .then(res => {
             res.exists() ? setBtnWatch(true) : setBtnWatch(false)
         })
-        .catch(err => {})
+        .catch(err => console.log(err))
     }
-    useEffect(() => {
-        setLoading(true)
-        const loadingTime = setTimeout(()=> {
-            setLoading(false)
-        }, 2000)
+
+    const fetchFunc = () => {
+        window.scrollTo(0, 0)
         const filmUrl = `${process.env.REACT_APP_URL}/${type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=vi`
-        axios.get(filmUrl)
-        .then(res => {
-            console.log(data)
-            setData(res.data)
-            setCheckParams(true)
-        })
+        const creditsUrl = `${process.env.REACT_APP_URL}/${type}/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=vi`
+        const trailersUrl = `${process.env.REACT_APP_URL}/${type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en`
+
+        const getFilmAxios = axios.get(filmUrl)
+        const getCredits = axios.get(creditsUrl)
+        const getTrailers = axios.get(trailersUrl)
+
+        axios.all([getFilmAxios, getCredits, getTrailers])
+        .then(
+            axios.spread((...res) => {
+                setData(res[0].data)
+                setCredits(res[1].data)
+                setTrailers(res[2].data)
+                setLoading(false)
+            })
+        )
         .catch(err => {
+            console.log(err)
             setCheckParams(false)
-        }) 
-        
+            setLoading(false)
+        })  
+    }
+
+    useEffect(() => {
+        fetchFunc()
         getFilm()
-
-        return () => {
-            clearTimeout(loadingTime)
-        }
     }, [])
-
-    useEffect (() => {
-        if (checkParams) {
-            const creditUrl = `${process.env.REACT_APP_URL}/${type}/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=vi`
-            fetchFunc(creditUrl, setCredits)
-
-            const trailerUrl = `${process.env.REACT_APP_URL}/${type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en`
-            fetchFunc(trailerUrl, setTrailers)
-        }
-    }, [checkParams])
 
     return (
         <>
             {
                 loading ? <Loading /> : 
                     checkParams ? 
-                    <>
+                    <FadeIn>
                         <div 
                             className="background" 
                             style = {{backgroundImage: `url(https://image.tmdb.org/t/p/original${data.backdrop_path})`}} 
@@ -136,7 +126,7 @@ function DetailPage() {
                                             />
                                         </div>
                                         <IconContext.Provider value={{color: '#fff', size: '1.25rem'}}>
-                                            <Link to="/" className="detail-watch">
+                                            <Link to="#" className="detail-watch">
                                                 <FaPlay />
                                                 <span>Xem phim</span>
                                             </Link>
@@ -233,7 +223,7 @@ function DetailPage() {
                             trailerKey={trailerKey}
                             handleClick={handleTrailer}
                         />
-                    </>
+                    </FadeIn>
                     : <NotFound />
             }
         </>

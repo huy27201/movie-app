@@ -4,22 +4,13 @@ import { useStore } from '../../Contexts/StoreContext'
 import Loading from '../Loading/Loading'
 import FadeIn from 'react-fade-in'
 
-
-
 function Collection() {
     const { getFilms, filmCollection } = useStore()
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        setLoading(true)
-        const loadingTime = setTimeout(() => {
-            setLoading(false)
-        }, 2000)
         getFilms()
-
-        return (() => {
-            clearTimeout(loadingTime)
-        })
+        .then(setLoading(false))
     }, [])
 
     return (

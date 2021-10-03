@@ -11,39 +11,40 @@ const query = {
 }
 
 function HomePage() {
-    const [reccomendList, setReccomendList] = useState([])
+    const [recommendList, setRecommendList] = useState([])
     const [movieList, setMovieList] = useState([])
     const [tvList, setTvList] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     
-    const fetchFunc = (url, callback) => {
-        axios.get(url)
-        .then(res => {  
-            const { results } = res.data
-            callback(results)
-        })
+    window.scrollTo(0, 0)
+    //Hàm get api
+    const fetchFunc = () => {
+        const paramsFilters = queryString.stringify(query)
+        const recommendUrl = `${process.env.REACT_APP_URL}/trending/all/week?${paramsFilters}`
+        const movieUrl = `${process.env.REACT_APP_URL}/trending/movie/day?${paramsFilters}`
+        const tvUrl = `${process.env.REACT_APP_URL}/trending/tv/day?${paramsFilters}`
+
+        const recomendListAxios = axios.get(recommendUrl)
+        const movieListAxios = axios.get(movieUrl)
+        const tvListAxios = axios.get(tvUrl)
+
+        axios.all([recomendListAxios, movieListAxios, tvListAxios])
+        .then(
+            axios.spread((...res) => {
+                setRecommendList(res[0].data.results)
+                setMovieList(res[1].data.results)
+                setTvList(res[2].data.results)
+                setLoading(false)
+            })
+        )
         .catch(err => {
             console.log(err)
+            setLoading(false)
         })
     }
 
     useEffect(() => {
-        setLoading(true)
-        const loadingTime = setTimeout(() => {
-            setLoading(false)
-        }, 2000)
-        const paramsFilters = queryString.stringify(query)
-        const reccomendUrl = `${process.env.REACT_APP_URL}/trending/all/week?${paramsFilters}`
-        const movieUrl = `${process.env.REACT_APP_URL}/trending/movie/day?${paramsFilters}`
-        const tvUrl = `${process.env.REACT_APP_URL}/trending/tv/day?${paramsFilters}`
-        
-        fetchFunc(reccomendUrl, setReccomendList)
-        fetchFunc(movieUrl, setMovieList)
-        fetchFunc(tvUrl, setTvList)
-        
-        return (() => {
-            clearTimeout(loadingTime)
-        })
+        fetchFunc()
     }, [])
 
     return (
@@ -54,19 +55,19 @@ function HomePage() {
                     <div className="main-section">
                         <div className="section">
                                 <PosterList 
-                                    list = {reccomendList} 
+                                    list = {recommendList} 
                                     title = "Phim đề cử" 
-                                    limit = {5}
+                                    limit = {5}     //Giới hạn poster được render là 5
                                 />
                                 <PosterList 
                                     list = {movieList} 
                                     title = "Phim lẻ mới cập nhật" 
-                                    limit = {10}
+                                    limit = {10}    //Giới hạn poster được render là 10
                                 />
                                 <PosterList 
                                     list = {tvList} 
                                     title = "Phim bộ mới cập nhật" 
-                                    limit = {10}
+                                    limit = {10}    //Giới hạn poster được render là 10
                                 />
                         </div>
                     </div>

@@ -13,11 +13,9 @@ function ActorImageList(props) {
         </div> ) 
         : ''
     return ( 
-        <>
-            <div className="profile-images">
-                {posts}
-            </div>
-        </>
+        <div className="profile-images">
+            {posts}
+        </div>
     )
 }
 

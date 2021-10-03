@@ -17,46 +17,36 @@ function ActorPage() {
     const { id } = useParams()
     const [profile, setProfile] = useState({})
     const [images, setImages] = useState({})
-    const [checkParams, setCheckParams] = useState(false)
-    const [loading, setLoading] = useState(false)
+    const [checkParams, setCheckParams] = useState(true)
+    const [loading, setLoading] = useState(true)
 
-    const fetchFunc = (url, callback) => {
-        axios.get(url)
-        .then(res => {
-            console.log(res.data);
-            callback(res.data)
-        })
+    const fetchFunc = paramsFilters => {
+        const profileUrl = `${process.env.REACT_APP_URL}/person/${id}?${paramsFilters}`
+        const imagesUrl = `${process.env.REACT_APP_URL}/person/${id}/images?${paramsFilters}`
+
+        const getProfile = axios.get(profileUrl)
+        const getImages = axios.get(imagesUrl)
+
+        axios.all([getProfile, getImages])
+        .then(
+            axios.spread((...res) => {
+                setProfile(res[0].data)
+                setImages(res[1].data)
+                setLoading(false)
+            })
+        )
         .catch(err => {
             console.log(err)
+            setCheckParams(false)
+            setLoading(false)
         })  
     }
-    useEffect(() => {
-        setLoading(true)
-        const loadingTime = setTimeout(()=> {
-            setLoading(false)
-        }, 2000)
-        const paramsFilters = queryString.stringify(query)
-        const url = `${process.env.REACT_APP_URL}/person/${id}?${paramsFilters}`
-        axios.get(url)
-        .then(res => {
-            setProfile(res.data)
-            setCheckParams(true)
-        })
-        .catch(err => {
-            setCheckParams(false)
-        })  
 
-        return () => {
-            clearTimeout(loadingTime)
-        }
-    }, [])
     useEffect(() => {
-        if (checkParams) {
-            const paramsFilters = queryString.stringify(query)
-            const imageUrl = `${process.env.REACT_APP_URL}/person/${id}/images?${paramsFilters}`
-            fetchFunc(imageUrl, setImages)
-        }
-    }, [checkParams])
+        const paramsFilters = queryString.stringify(query)
+        fetchFunc(paramsFilters)
+    }, [])
+
     return (
         <>
             {
