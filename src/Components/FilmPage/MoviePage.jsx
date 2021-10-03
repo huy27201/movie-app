@@ -94,8 +94,9 @@ function MoviePage() {
                                 <PosterList list = {movieList} />
                             </FadeIn>
                         }
-                        <Pagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} />           
-                        {movieList.length === 0 ? <div className="notfound">Không thấy phim bạn muốn xem? Hãy thử <Link to="#" className="link">yêu cầu phim</Link>!</div> : ''}
+                        {movieList.length !== 0 ? 
+                            <Pagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} /> :
+                            <div className="notfound">Không thấy phim bạn muốn xem? Hãy thử <Link to="#" className="link">yêu cầu phim</Link>!</div>}       
                 </div>
             </div>
         </FadeIn>
