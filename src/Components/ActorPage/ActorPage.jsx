@@ -43,6 +43,7 @@ function ActorPage() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         const paramsFilters = queryString.stringify(query)
         fetchFunc(paramsFilters)
     }, [])
