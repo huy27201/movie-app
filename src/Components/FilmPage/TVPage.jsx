@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import PosterList from '../Poster/PosterList'
 import queryString from 'query-string'
-import Pagination from '../Pagination/Pagination'
+import PagePagination from '../Pagination/Pagination'
 import Loading from '../Loading/Loading'
 import FadeIn from 'react-fade-in'
 
@@ -14,8 +14,6 @@ function TVPage() {
         language: 'vi',
         page: 1,
         sort_by: 'popularity.desc',
-        year: '',
-        with_genres: ''
     })
     
     //Hàm get api
@@ -24,8 +22,9 @@ function TVPage() {
         axios.get(url)
         .then(res => {
             const { results, total_pages } = res.data
+            
             setTvList(results)
-            setTotalPages(total_pages)
+            setTotalPages(total_pages <= 100 ? totalPages : 100)
             setLoading(false)
         })
         .catch(err => {
@@ -40,7 +39,6 @@ function TVPage() {
             ...filters,
             page: newPage
         })
-        console.log(loading);
     }
 
     useEffect(() => {
@@ -56,11 +54,11 @@ function TVPage() {
                         <h1 className="page-title">Phim bộ</h1>
                         {
                             loading ? <Loading /> : 
-                            <FadeIn>
-                                <PosterList list = {tvList} />
-                            </FadeIn>
+                                <FadeIn>
+                                    <PosterList list = {tvList} limit = {totalPages}/>
+                                </FadeIn>
                         }
-                        <Pagination 
+                        <PagePagination 
                             page = {filters.page} 
                             totalPages = {totalPages} 
                             onPageChange = {handlePageChange} 

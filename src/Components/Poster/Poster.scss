@@ -22,7 +22,6 @@
         flex-direction: column;
 
         .poster-img {
-            
             img {
                 width: 100%;
                 height: auto;
@@ -45,6 +44,21 @@
             .poster-origin-name {
                 color: #7a7a7a;
             }
+        }
+    }
+    @media screen and (max-width: 1408px) {
+        .poster-item {
+            flex: 0 0 calc(25% - 1rem);
+        }
+    }
+    @media screen and (max-width: 1216px) {
+        .poster-item {
+            flex: 0 0 calc(33.33% - 1rem);
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .poster-item {
+            flex: 0 0 calc(50% - 1rem);
         }
     }
 }
