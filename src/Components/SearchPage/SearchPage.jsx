@@ -17,7 +17,6 @@ function SearchPage() {
     const [loading, setLoading] = useState(false)
 
     const handleFiltersChange = value => {
-        console.log(value)
         if (value.searchTerm === '') value.searchTerm = 'abcdefghijk'
         setFilters({
             ...filters,

@@ -1,23 +1,33 @@
 import React from 'react'
 import './Pagination.scss'
+import ReactPaginate from 'react-paginate'
 
-function Pagination(props) {
+function PagePagination(props) {
     const { onPageChange, totalPages, page } = props
-    const handleClick = (event, newPage) => {
-        event.preventDefault()
-        if (newPage >= 1 && newPage <= totalPages) 
-            onPageChange(newPage)
+
+    const handleClick = event => {
+        // event.selected starts at 0
+        onPageChange(event.selected + 1)
     }
 
     return (
         <div className="pagination-container">
-            <div className="pagination-list">
-                <a href="# " className="pag-btn" onClick={event => handleClick(event, page - 1)}>Trang trước</a>
-                <span className="pag-btn">{page}</span>
-                <a href="# " className="pag-btn" onClick={event => handleClick(event, page + 1)}>Trang sau</a>
-            </div>
+            <ReactPaginate
+                containerClassName="pag-list"
+                pageLinkClassName="pag-btn"
+                activeLinkClassName="pag-active"
+                previousLinkClassName="pag-btn pag-arrow"
+                nextLinkClassName="pag-btn pag-arrow"
+                breakLinkClassName="pag-break"
+                breakLabel="..."
+                onPageChange={handleClick}
+                pageRangeDisplayed={3}
+                pageCount={totalPages}
+                renderOnZeroPageCount={null}
+                marginPagesDisplayed={1}
+            />
         </div>
     )
 }
 
-export default Pagination
+export default PagePagination

@@ -2,20 +2,48 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
-
+    
+    .pag-list {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 
     .pag-btn {
-        padding: 0.5rem 0.75rem;
+        padding: 0.5rem 0.8rem;
         display: inline-block;
         border: solid 1px #dbdbdb;
         border-radius: 3px;
         margin: 0.25rem;
         transition: 0.3s ease;
         text-align: center;
+        cursor: pointer;
 
         &:hover {
             border: solid 1px #b5b5b5;
             color: #dcf836;
         }
     }
+    .pag-break {
+        padding: 0.5rem 0.8rem;
+    }
+    .pag-active, .pag-active:hover {
+        background-color: #428bca;
+        border-color: #428bca;
+        color: #fff;
+    }
+}
+@media screen and (max-width: 768px) {
+    .pagination-container {
+        justify-content: center;
+    }
+}
+@media screen and (max-width: 576px) {
+    .pagination-container {
+        .pag-arrow {
+            display: none;
+        }
+    }
+
 }

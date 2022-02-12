@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import PosterList from '../Poster/PosterList'
-import Pagination from '../Pagination/Pagination'
+import PagePagination from '../Pagination/Pagination'
 import Filters from '../Filters/Filters'
 import queryString from 'query-string'
 import { Link } from 'react-router-dom'
@@ -55,7 +55,7 @@ function MoviePage() {
         .then(res => {
             const { results, total_pages } = res.data
             setMovieList(results)
-            setTotalPages(total_pages)
+            setTotalPages(total_pages <= 100 ? totalPages : 100)
             setLoading(false)
         })
         .catch(err => {
@@ -91,11 +91,14 @@ function MoviePage() {
                         {
                             loading ? <Loading /> :
                             <FadeIn>
-                                <PosterList list = {movieList} />
+                                <PosterList 
+                                    list = {movieList} 
+                                    limit = {totalPages}
+                                />
                             </FadeIn>
                         }
                         {movieList.length !== 0 ? 
-                            <Pagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} /> :
+                            <PagePagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} /> :
                             <div className="notfound">Không thấy phim bạn muốn xem? Hãy thử <Link to="#" className="link">yêu cầu phim</Link>!</div>}       
                 </div>
             </div>
