@@ -1,5 +1,6 @@
 .filters-container {
     display: flex;
+    flex-wrap: wrap;
     margin: 0 -0.75rem 0.25rem;
     padding: 0 0.5rem;
     background-color: rgba(14,39,64,.45);
@@ -7,6 +8,7 @@
 
     .filters-block {
         display: flex;
+        flex-wrap: wrap;
     }
     .filters-left {
         flex: 1 0 85%;
@@ -27,6 +29,20 @@
             font-weight: 700;
             margin-bottom: 0.5rem;
             color: #fff;
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        .filters-item {
+            flex: 0 0 50%;
+        }
+    }
+    @media screen and (max-width: 576px) {
+        .filters-left {
+            flex: 1 0 100%;
+        }
+        .filters-right {
+            flex: 1 0 100%;
         }
     }
 }

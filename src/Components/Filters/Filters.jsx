@@ -2,7 +2,7 @@ import React from 'react'
 import Select from 'react-select'
 import './Filters.scss'
 import  { countries } from './CountryOptions'
-import { genres } from './GenreOptions'
+import { movieGenres } from './GenreOptions'
 import { sortOptions } from './SortOptions'
 import { years } from './YearOptions'
 
@@ -26,8 +26,8 @@ function Filters(props) {
                 <div className="filters-item">
                     <label className="filters-label">Thể loại:</label>
                     <Select 
-                        options = {genres}
-                        defaultValue = {genres[0]} 
+                        options = {movieGenres}
+                        defaultValue = {movieGenres[0]} 
                         isSearchable = {false}
                         onChange = {handleGenre}
                     />

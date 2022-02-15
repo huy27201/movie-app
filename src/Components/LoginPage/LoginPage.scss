@@ -16,8 +16,7 @@
     margin: 0 0 1rem;
     font-weight: 500;
 }
-.box {
-    flex: 0 0 27.5%;
+.box {  
     margin-bottom: 1rem;
 
     .form {
@@ -71,5 +70,10 @@
             margin: 0 0.5rem;
         }
     }
+}
 
+@media screen and (max-width: 576px) {
+    .box {
+        flex: 0 0 100%;
+    }
 }

@@ -3,7 +3,7 @@ import { Link, NavLink, useHistory } from 'react-router-dom'
 import Logo from '../../Assets/img/Logo.png'
 import './Navbar.scss'
 import { IconContext } from 'react-icons'
-import { FaSearch, FaChevronDown, FaFilm, FaSignOutAlt } from 'react-icons/fa'
+import { FaSearch, FaChevronDown, FaFilm, FaSignOutAlt, FaBars } from 'react-icons/fa'
 import { useAuth } from '../../Contexts/AuthContext'
 import { useStore } from '../../Contexts/StoreContext'
 import { toast } from 'react-toastify'
@@ -14,6 +14,7 @@ function Navbar() {
     const { currentUser, logout } = useAuth()
     const { resetCollection } = useStore()
     const [active, setActive] = useState(false)
+    const [sideActive, setSideActive] = useState(false)
     const history = useHistory()
 
     useEffect(() => {
@@ -30,22 +31,28 @@ function Navbar() {
             await logout()
             await resetCollection()
             history.push('/login')
+            setSideActive(false)
         }
         catch(err) {
             toast.error('Đăng xuất thất bại.')
         }
     }
 
+    const closeSideMenu = () => {
+        setSideActive(false)
+    }
+
     return (
-            <div className={active ? "navbar navbar-purple" : "navbar"}>
+        <>
+            <div className={active ? "navbar navbar-purple nav-widescreen" : "navbar nav-widescreen"}>
                 <div id="nav-brand">
                     <Link to="/" id="nav-logo">
                             <img src={ Logo } alt="Xemphim Logo" />
                     </Link>
                 </div>
-                <div id="nav-right">
+                <div className="nav-right">
                     <IconContext.Provider value={{color: '#fff'}}>
-                        <ul id="nav-list">
+                        <ul className="nav-list">
                             <li className="nav-li">
                                 <NavLink to="/search" className="nav-item" activeClassName="active">
                                     <FaSearch />
@@ -99,16 +106,94 @@ function Navbar() {
                                 </ul>
                             </IconContext.Provider>
                         </div> :
-                        <div id="nav-btn-container">
+                        <div className="nav-btn-container">
                             <Link to="/login" className="nav-btn">
                                 Đăng nhập
                             </Link>
                         </div>
                     }
                 </div>
-                
             </div>
-        
+            <div className={active ? "navbar navbar-purple nav-smallscreen" : "navbar nav-smallscreen"}>
+                <a href="# " className="nav-menu-btn" onClick={() => setSideActive(true)}>
+                    <FaBars />
+                </a>
+                <div id="nav-brand">
+                    <Link to="/" id="nav-logo">
+                            <img src={ Logo } alt="Xemphim Logo" />
+                    </Link>
+                </div>
+                <div className="nav-right">
+                    <IconContext.Provider value={{color: '#fff'}}>
+                        <ul className="nav-list">
+                            <li className="nav-li">
+                                <NavLink to="/search" className="nav-item" activeClassName="active">
+                                    <FaSearch />
+                                    <span>Tìm kiếm</span>
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </IconContext.Provider>
+                </div>
+            </div>
+            <div className={sideActive ? "nav-overlay nav-overlay-active" : "nav-overlay"} onClick={closeSideMenu}></div>
+            <div className={sideActive ? "side-menu side-menu-active" : "side-menu"}>
+                {
+                    currentUser ? 
+                    <div className="nav-li nav-profile">
+                        <div className="nav-item side-profile">
+                            <span>
+                                {currentUser.displayName}
+                            </span>
+                        </div>
+                        <IconContext.Provider value={{className: 'profile-icon'}}>
+                        <ul className="nav-list">
+                            <li className="nav-li">
+                                <NavLink to="/collection" className="nav-item profile-li" activeClassName="active" onClick={closeSideMenu}>
+                                    <FaFilm />
+                                    Bộ sưu tập
+                                </NavLink>
+                            </li>
+                            <li className="nav-li">
+                                <Link to='/' className="nav-item profile-li" onClick={handleLogOut}>
+                                    <FaSignOutAlt />
+                                    Đăng xuất
+                                </Link>
+                            </li>
+                        </ul>
+                        </IconContext.Provider>
+                    </div> :
+                    <>
+                        <div className="nav-btn-container">
+                            <Link to="/login" className="nav-btn" onClick={closeSideMenu}>
+                                Đăng nhập
+                            </Link>
+                        </div>
+                        <NavLink to="/signup" className="nav-item" activeClassName="active" onClick={closeSideMenu}>
+                            Đăng ký
+                        </NavLink>
+                    </>
+                }
+                <hr></hr>
+                <ul className="nav-list">
+                    <li className="nav-li">
+                        <NavLink to="/movie" className="nav-item" activeClassName="active" onClick={closeSideMenu}>
+                            Phim Lẻ
+                        </NavLink>
+                    </li>
+                    <li className="nav-li">
+                        <NavLink to="/tv" className="nav-item" activeClassName="active" onClick={closeSideMenu}>
+                            Phim Bộ
+                        </NavLink>
+                    </li>
+                    <li className="nav-li">
+                        <NavLink to="/faq" className="nav-item" activeClassName="active" onClick={closeSideMenu}>
+                            FAQ
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
+        </>
     )
 }
 

@@ -4,7 +4,6 @@ import PosterList from '../Poster/PosterList'
 import PagePagination from '../Pagination/Pagination'
 import Filters from '../Filters/Filters'
 import queryString from 'query-string'
-import { Link } from 'react-router-dom'
 import Loading from '../Loading/Loading'
 import FadeIn from 'react-fade-in'
 
@@ -18,7 +17,7 @@ function MoviePage() {
         sort_by: 'popularity.desc',
         year: '',
         with_genres: '',
-        with_original_language: ''
+        with_original_language: '',
     })
 
     const handleSort = value => {
@@ -54,6 +53,7 @@ function MoviePage() {
         axios.get(url)
         .then(res => {
             const { results, total_pages } = res.data
+            console.log(results);
             setMovieList(results)
             setTotalPages(total_pages <= 100 ? totalPages : 100)
             setLoading(false)
@@ -99,7 +99,7 @@ function MoviePage() {
                         }
                         {movieList.length !== 0 ? 
                             <PagePagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} /> :
-                            <div className="notfound">Không thấy phim bạn muốn xem? Hãy thử <Link to="#" className="link">yêu cầu phim</Link>!</div>}       
+                            <div className="notfound">Không thấy phim bạn muốn xem?</div>}       
                 </div>
             </div>
         </FadeIn>
