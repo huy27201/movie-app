@@ -3,7 +3,7 @@ import './Pagination.scss'
 import ReactPaginate from 'react-paginate'
 
 function PagePagination(props) {
-    const { onPageChange, totalPages, page } = props
+    const { onPageChange, totalPages } = props
 
     const handleClick = event => {
         // event.selected starts at 0

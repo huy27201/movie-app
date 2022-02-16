@@ -27,7 +27,7 @@ function MoviePage() {
             page: 1
         })
     }
-    const handleCountry = value => {
+    const handleLanguage = value => {
         setFilters({
             ...filters, 
             with_original_language: value,
@@ -83,8 +83,9 @@ function MoviePage() {
                 <div className="section">
                         <h1 className="page-title">Phim lẻ</h1>
                         <Filters 
+                            type = "movie"
                             handleSort = {handleSort} 
-                            handleCountry = {handleCountry} 
+                            handleLanguage = {handleLanguage} 
                             handleGenre = {handleGenre}
                             handleYear = {handleYear}
                         />
@@ -98,7 +99,7 @@ function MoviePage() {
                             </FadeIn>
                         }
                         {movieList.length !== 0 ? 
-                            <PagePagination page = {filters.page} totalPages = {totalPages} onPageChange = {handlePageChange} /> :
+                            <PagePagination totalPages = {totalPages} onPageChange = {handlePageChange} /> :
                             <div className="notfound">Không thấy phim bạn muốn xem?</div>}       
                 </div>
             </div>
