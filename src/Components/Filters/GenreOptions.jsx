@@ -6,7 +6,7 @@ let movieGenres = [], tvGenres = []
 const movieUrl = `${process.env.REACT_APP_URL}/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}&language=vi`
 const tvUrl = `${process.env.REACT_APP_URL}/genre/tv/list?api_key=${process.env.REACT_APP_API_KEY}&language=vi`
 
-axios.all([axios.get(movieUrl), axios.get(tvUrl)])
+export const genresConfig = axios.all([axios.get(movieUrl), axios.get(tvUrl)])
 .then(axios.spread((movieData, tvData) => {
     // movie 
     movieGenres = movieData.data.genres.map(item => {
@@ -14,10 +14,6 @@ axios.all([axios.get(movieUrl), axios.get(tvUrl)])
             label: item.name,
             value: item.id
         }
-    })
-    movieGenres.unshift({ 
-        label: '- Tất cả -',
-        value: '' 
     })
 
     // tv
@@ -27,11 +23,6 @@ axios.all([axios.get(movieUrl), axios.get(tvUrl)])
             value: item.id
         }
     })
-    tvGenres.unshift({ 
-        label: '- Tất cả -',
-        value: '' 
-    })
+    return { movieGenres, tvGenres }
 }))
 .catch(err => console.log(err))
-
-export { movieGenres, tvGenres }

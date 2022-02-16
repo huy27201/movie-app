@@ -147,20 +147,20 @@ function Navbar() {
                             </span>
                         </div>
                         <IconContext.Provider value={{className: 'profile-icon'}}>
-                        <ul className="nav-list">
-                            <li className="nav-li">
-                                <NavLink to="/collection" className="nav-item profile-li" activeClassName="active" onClick={closeSideMenu}>
-                                    <FaFilm />
-                                    Bộ sưu tập
-                                </NavLink>
-                            </li>
-                            <li className="nav-li">
-                                <Link to='/' className="nav-item profile-li" onClick={handleLogOut}>
-                                    <FaSignOutAlt />
-                                    Đăng xuất
-                                </Link>
-                            </li>
-                        </ul>
+                            <ul className="nav-list">
+                                <li className="nav-li">
+                                    <NavLink to="/collection" className="nav-item profile-li" activeClassName="active" onClick={closeSideMenu}>
+                                        <FaFilm />
+                                        Bộ sưu tập
+                                    </NavLink>
+                                </li>
+                                <li className="nav-li">
+                                    <Link to='/' className="nav-item profile-li" onClick={handleLogOut}>
+                                        <FaSignOutAlt />
+                                        Đăng xuất
+                                    </Link>
+                                </li>
+                            </ul>
                         </IconContext.Provider>
                     </div> :
                     <>

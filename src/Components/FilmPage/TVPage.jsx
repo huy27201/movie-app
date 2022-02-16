@@ -59,7 +59,6 @@ function TVPage() {
                                 </FadeIn>
                         }
                         <PagePagination 
-                            page = {filters.page} 
                             totalPages = {totalPages} 
                             onPageChange = {handlePageChange} 
                         />
