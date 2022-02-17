@@ -4,7 +4,7 @@ import { FaTimes } from 'react-icons/fa'
 
 function TrailerDetail(props) {
     const { trailerKey, handleClick } = props
-    console.log(trailerKey);
+    
     if (!trailerKey || trailerKey === '') return <div></div>
     return (
         <div className="trailer-popup">

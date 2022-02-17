@@ -13,7 +13,7 @@ import { useStore } from '../../Contexts/StoreContext'
 import { useAuth } from '../../Contexts/AuthContext'
 import './DetailPage.scss'
 import { toast } from 'react-toastify'
-import {FacebookShareButton} from 'react-share'
+import { FacebookShareButton } from 'react-share'
 import FadeIn from 'react-fade-in'
 
 toast.configure()
@@ -35,9 +35,8 @@ function DetailPage() {
     const btnClass = ['detail-btn']
 
     currentUser && btnWatch ? btnClass.push('detail-watched') : btnClass.push('detail-alb')
-
+    console.log(credits);
     const handleTrailer = key => {
-        console.log(key)
         setTrailerKey(key)
     }
     const handleCollection = async () => {
@@ -122,7 +121,7 @@ function DetailPage() {
                                             <img 
                                                 src={data.poster_path ? `https://image.tmdb.org/t/p/w300${data.poster_path}`
                                                     : 'https://i.imgur.com/wLJJctg.png'} 
-                                                alt="Poster" 
+                                                alt={data.title} 
                                             />
                                         </div>
                                         <IconContext.Provider value={{color: '#fff', size: '1.25rem'}}>
@@ -138,8 +137,9 @@ function DetailPage() {
                                         <p className="detail-time">
                                             {
                                                 (data.runtime ? (data.runtime >= 60 ? 
-                                                    Math.floor(data.runtime / 60) + ' giờ ' + (data.runtime % 60) + ' phút'
-                                                    : data.runtime + ' phút') : ('Phim bộ'))
+                                                    `${Math.floor(data.runtime / 60)} giờ ${data.runtime % 60} phút`
+                                                        : `${data.runtime} phút`) 
+                                                    : `Thời lượng tập phim: ${data.episode_run_time[0]} phút`)
                                             }
                                         </p>
                                         <div className="detail-rate">Đánh giá: {data.vote_average}</div>
@@ -175,7 +175,8 @@ function DetailPage() {
                                                         <div 
                                                             key={item.id} 
                                                             className="detail-genre">
-                                                            {item.name.substr(item.name.indexOf(' ') + 1)}
+                                                            {item.name.indexOf("Phim") !== -1 ? 
+                                                                item.name.substr(item.name.indexOf(' ') + 1) : item.name}
                                                         </div>
                                                     )
                                                 }

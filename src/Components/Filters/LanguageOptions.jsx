@@ -7,7 +7,6 @@ const url = `${process.env.REACT_APP_URL}/configuration/languages?api_key=${proc
 
 export const languagesConfig = axios.get(url)
 .then(res => {
-    console.log(res.data);
     languages = res.data.map(item => {
         return {
             label: item.english_name,
