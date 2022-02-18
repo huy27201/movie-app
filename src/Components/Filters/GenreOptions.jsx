@@ -25,4 +25,3 @@ export const genresConfig = axios.all([axios.get(movieUrl), axios.get(tvUrl)])
     })
     return { movieGenres, tvGenres }
 }))
-.catch(err => console.log(err))

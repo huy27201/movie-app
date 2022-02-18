@@ -30,16 +30,22 @@ function Filters(props) {
     }
 
     useEffect(() => {
-        // genres filters
-        genresConfig.then(res => {
-            if (props.type === "movie") setGenres([...genres, ...res.movieGenres])
-            else if (props.type === "tv") setGenres([...genres, ...res.tvGenres])
-        }) 
-
-        // languages filters
-        languagesConfig.then(res => {
-            setLanguages([...languages, ...res])
-        }) 
+        
+        try {
+            // genres filters
+            genresConfig.then(res => {
+                if (props.type === "movie") setGenres([...genres, ...res.movieGenres])
+                else if (props.type === "tv") setGenres([...genres, ...res.tvGenres])
+            }) 
+    
+            // languages filters
+            languagesConfig.then(res => {
+                setLanguages([...languages, ...res])
+            }) 
+        }
+        catch (err) {
+            console.log(err);
+        }
     }, []);
 
     return (

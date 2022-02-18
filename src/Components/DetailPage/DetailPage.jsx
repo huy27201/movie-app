@@ -100,7 +100,7 @@ function DetailPage() {
 
     useEffect(() => {
         fetchFunc()
-        getFilm()
+        if (currentUser) getFilm()
     }, [])
 
     return (

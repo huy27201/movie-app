@@ -20,20 +20,21 @@ function SignupPage() {
         e.preventDefault()
         try {
             setLoading(true)
-            switch (e.nativeEvent.submitter.name) {
-                case 'email':
-                    await signup(name, email, password)
-                    history.push('/')
-                    break
-                case 'google':
-                    await googleLogin()
-                    history.push('/')
-                    break
-                default:
-                    break
-            }
+            await signup(name, email, password)
+            history.push('/')
         }
         catch(err) {
+            toast.error(err.message)
+            setLoading(false)
+        }
+    }
+    const handleGoogleLogIn = async () => {
+        try {
+            setLoading(true)
+            await googleLogin()
+            history.push('/')
+        }
+        catch (err) {
             toast.error(err.message)
             setLoading(false)
         }
@@ -102,7 +103,9 @@ function SignupPage() {
                             <button 
                                 className="login-btn red-btn"
                                 disabled={loading}
+                                type="button"
                                 name="google"
+                                onClick={handleGoogleLogIn}
                             >
                                 <FaGoogle  />
                                 <span className="btn-span">Đăng nhập với Google</span>

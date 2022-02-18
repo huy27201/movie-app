@@ -15,4 +15,3 @@ export const languagesConfig = axios.get(url)
     })
     return languages
 })
-.catch(err => console.log(err))
