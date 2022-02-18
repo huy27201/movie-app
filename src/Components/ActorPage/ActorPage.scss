@@ -1,12 +1,12 @@
-$gap: 1.5rem;
+$gap: 1rem;
 
-.actor-neg {
-    margin: 0 -2rem;
-}
 .profile-title {
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0 0 1.5rem;
+}
+.profile-name {
+    font-size: 2.5rem;
 }
 .actor-overview {
     margin-bottom: 2rem!important;
@@ -24,7 +24,7 @@ $gap: 1.5rem;
 .profile-images {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 calc(-1 * #{$gap});
+    margin: 0 calc(-1 * #{$gap}) 1rem;
 
     .profile-image {
         flex: 0 0 calc(25% - #{$gap} * 2);
@@ -35,6 +35,16 @@ $gap: 1.5rem;
                 width: 100%;
                 height: auto;
             }
+        }
+    }
+    @media screen and (max-width: 1216px) {
+        .profile-image {
+            flex: 0 0 calc(33.33% - #{$gap} * 2);
+        }
+    }
+    @media screen and (max-width: 576px) {
+        .profile-image {
+            flex: 0 0 calc(50% - #{$gap} * 2);
         }
     }
 }

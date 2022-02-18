@@ -139,7 +139,8 @@ function DetailPage() {
                                                 (data.runtime ? (data.runtime >= 60 ? 
                                                     `${Math.floor(data.runtime / 60)} giờ ${data.runtime % 60} phút`
                                                         : `${data.runtime} phút`) 
-                                                    : `Thời lượng tập phim: ${data.episode_run_time[0]} phút`)
+                                                    :  data.episode_run_time ?
+                                                    `Thời lượng tập phim: ${data.episode_run_time[0]} phút` : `Phim bộ`)
                                             }
                                         </p>
                                         <div className="detail-rate">Đánh giá: {data.vote_average}</div>
