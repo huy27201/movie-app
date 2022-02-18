@@ -28,7 +28,14 @@ function Cast(props) {
         slidesToScroll: 6,
         responsive: [
             {
-                breakpoint: 1280,
+                breakpoint: 1408,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 5,
+                }
+            },
+            {
+                breakpoint: 1216,
                 settings: {
                     slidesToShow: 4,
                     slidesToScroll: 4,
@@ -49,13 +56,27 @@ function Cast(props) {
                 }
             },
             {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                }
+            },
+            {
                 breakpoint: 576,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                }
+            },
+            {
+                breakpoint: 450,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2
                 }
             }
-          ]
+        ]
     }    
     return (
         <>

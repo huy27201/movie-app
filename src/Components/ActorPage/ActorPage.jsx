@@ -10,28 +10,31 @@ import './ActorPage.scss'
 
 const query = {
     api_key: process.env.REACT_APP_API_KEY,
-    language: 'vi'
 }
 
 function ActorPage() {
     const { id } = useParams()
     const [profile, setProfile] = useState({})
+    const [films, setFilms] = useState({})
     const [images, setImages] = useState({})
     const [checkParams, setCheckParams] = useState(true)
     const [loading, setLoading] = useState(true)
 
     const fetchFunc = paramsFilters => {
         const profileUrl = `${process.env.REACT_APP_URL}/person/${id}?${paramsFilters}`
+        const filmUrl =  `${process.env.REACT_APP_URL}/person/${id}/combined_credits?${paramsFilters}`
         const imagesUrl = `${process.env.REACT_APP_URL}/person/${id}/images?${paramsFilters}`
 
         const getProfile = axios.get(profileUrl)
+        const getFilms = axios.get(filmUrl)
         const getImages = axios.get(imagesUrl)
 
-        axios.all([getProfile, getImages])
+        axios.all([getProfile, getFilms, getImages])
         .then(
             axios.spread((...res) => {
                 setProfile(res[0].data)
-                setImages(res[1].data)
+                setFilms(res[1].data)
+                setImages(res[2].data)
                 setLoading(false)
             })
         )
@@ -41,6 +44,7 @@ function ActorPage() {
             setLoading(false)
         })  
     }
+    console.log(films);
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -56,7 +60,7 @@ function ActorPage() {
                     <FadeIn>
                         <div className="main-section">
                             <div className="section">
-                                <div className="detail actor-neg">
+                                <div className="detail">
                                     <div className="detail-item detail-card">
                                         <div className="detail-poster">
                                             <img src={profile.profile_path ? `https://image.tmdb.org/t/p/w300${profile.profile_path}`
@@ -94,11 +98,12 @@ function ActorPage() {
                                         </h1>
                                         <h2 className="profile-title">Tiểu sử</h2>
                                         <p className="detail-overview actor-overview">
-                                            {profile.biography !== '' ? profile.biography : 'Hiện chưa cập nhật tiểu sử.'}
+                                            {profile.biography ? profile.biography : 'Hiện chưa cập nhật tiểu sử.'}
                                         </p>
                                         <h2 className="profile-title">Ảnh</h2>
                                         <ActorImageList
                                             list={images.profiles}
+                                            type="image"
                                         />
                                     </div>
                                 </div>

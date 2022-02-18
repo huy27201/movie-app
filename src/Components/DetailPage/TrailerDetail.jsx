@@ -15,7 +15,7 @@ function TrailerDetail(props) {
                 controls
                 playing
                 width='1000px'
-                height='562px'
+                height='500px'
                 url={`https://youtu.be/${trailerKey}`}
             />
         </div>

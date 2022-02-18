@@ -91,6 +91,8 @@
 
             .detail-btns {
                 display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
                 margin-bottom: 1rem;
 
                 .detail-btn {
@@ -105,8 +107,9 @@
                         margin-left: 0.5rem;
                     }
                 }
-                .detail-btn:not(:last-child) {
-                    margin-right: 0.75rem;
+                .detail-btn:not(:first-child) {
+                    margin-right: 0.5rem;
+                    margin-left: 0.5rem;
                 }
                 .detail-alb {
                     background-color: #48c774;
@@ -208,7 +211,7 @@
             }
         }
         .detail-trailer {
-            padding-right: 1.5rem;
+            padding: 0 0.5rem;
             box-sizing: border-box;
             cursor: pointer;
             
@@ -289,18 +292,7 @@
         }
     }
 }
-.slick-arrow {
-    top: -1.5rem;
-    &::before {
-        font-size: 1.75rem;
-    }
-}
-.slick-prev {
-    left: 95%;
-}
-.slick-next {
-    left: 98%;
-}
+
 @media screen and (max-width: 768px) {
     .detail {
         flex-direction: column;
@@ -324,5 +316,22 @@
                 }
             }
         }
+    }
+    .slick-arrow {
+        top: -1.5rem;
+    }
+    .slick-prev {
+        left: 91%;
+    }
+    .slick-next {
+        left: 96%;
+    }
+}
+@media screen and (max-width: 576px) {
+    .slick-prev {
+        left: 85%;
+    }
+    .slick-next {
+        left: 94%;
     }
 }
