@@ -1,6 +1,6 @@
 # XEM PHIM CLUB
 
-[Click here to see the demo](https://huy27201-movie-app.herokuapp.com).
+[Click here to see the demo](https://huy27201-movie-app.netlify.app/).
 
 Original website: [Xemphim.club](https://xemphim.club).
 ## Description
