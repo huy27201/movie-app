@@ -101,6 +101,7 @@ function DetailPage() {
     useEffect(() => {
         fetchFunc()
         if (currentUser) getFilm()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

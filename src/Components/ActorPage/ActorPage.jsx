@@ -50,6 +50,7 @@ function ActorPage() {
         window.scrollTo(0, 0)
         const paramsFilters = queryString.stringify(query)
         fetchFunc(paramsFilters)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

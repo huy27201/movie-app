@@ -45,6 +45,7 @@ function TVPage() {
         window.scrollTo(0, 0)
         const paramsFilters = queryString.stringify(filters)
         fetchFunc(paramsFilters)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filters])
 
     return (

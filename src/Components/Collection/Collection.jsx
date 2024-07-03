@@ -11,6 +11,7 @@ function Collection() {
     useEffect(() => {
         getFilms()
         .then(setLoading(false))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
