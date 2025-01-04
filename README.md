@@ -19,7 +19,7 @@ This is a movie app where you can register and login by email or Google, and add
 ### Installation
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-username/movie-app.git
+    git clone https://github.com/huy27201/movie-app.git
     cd movie-app
     ```
 
