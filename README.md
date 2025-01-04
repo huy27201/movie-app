@@ -31,13 +31,13 @@ This is a movie app where you can register and login by email or Google, and add
     ```
 
 ### Environment Variables
-1. Create a [.env](http://_vscodecontentref_/2) file in the root directory of the project.
-2. Copy the contents of [.env.sample](http://_vscodecontentref_/3) to [.env](http://_vscodecontentref_/4):
+1. Create a `.env` file in the root directory of the project.
+2. Copy the contents of `.env.sample` to `.env`:
     ```sh
     cp .env.sample .env
     ```
 
-3. Fill in the required environment variables in the [.env](http://_vscodecontentref_/5) file:
+3. Fill in the required environment variables in the `.env` file:
     ```env
     REACT_APP_API_KEY=your_api_key
     REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
@@ -49,6 +49,29 @@ This is a movie app where you can register and login by email or Google, and add
     REACT_APP_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
     REACT_APP_URL=https://api.themoviedb.org/3
     ```
+
+### Obtaining Environment Variable Values
+
+#### Firebase Configuration
+1. Go to the [Firebase Console](https://console.firebase.google.com/).
+2. Create a new project or select an existing project.
+3. Navigate to Project Settings by clicking the gear icon next to "Project Overview".
+4. In the "General" tab, you will find your Firebase configuration under "Your apps". Click on the web app you have registered.
+5. Copy the following values from the Firebase configuration:
+    - `REACT_APP_FIREBASE_API_KEY`
+    - `REACT_APP_FIREBASE_APP_ID`
+    - `REACT_APP_FIREBASE_AUTH_DOMAIN`
+    - `REACT_APP_FIREBASE_MEASUREMENT_ID`
+    - `REACT_APP_FIREBASE_MESSAGING_SENDER_ID`
+    - `REACT_APP_FIREBASE_PROJECT_ID`
+    - `REACT_APP_FIREBASE_STORAGE_BUCKET`
+
+#### The Movie Database (TMDb) API Key
+1. Go to the [TMDb website](https://www.themoviedb.org/).
+2. Create an account or log in if you already have one.
+3. Navigate to your account settings and find the "API" section.
+4. Apply for an API key and follow the instructions provided by TMDb.
+5. Copy the API key and set it as the value for `REACT_APP_API_KEY`.
 
 ### Running the App Locally
 1. Start the development server:
