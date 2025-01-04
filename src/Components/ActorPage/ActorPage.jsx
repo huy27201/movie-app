@@ -15,7 +15,6 @@ const query = {
 function ActorPage() {
     const { id } = useParams()
     const [profile, setProfile] = useState({})
-    const [films, setFilms] = useState({})
     const [images, setImages] = useState({})
     const [checkParams, setCheckParams] = useState(true)
     const [loading, setLoading] = useState(true)
@@ -33,18 +32,15 @@ function ActorPage() {
         .then(
             axios.spread((...res) => {
                 setProfile(res[0].data)
-                setFilms(res[1].data)
                 setImages(res[2].data)
                 setLoading(false)
             })
         )
         .catch(err => {
-            console.log(err)
             setCheckParams(false)
             setLoading(false)
         })  
     }
-    console.log(films);
 
     useEffect(() => {
         window.scrollTo(0, 0)

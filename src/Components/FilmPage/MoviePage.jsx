@@ -53,13 +53,11 @@ function MoviePage() {
         axios.get(url)
         .then(res => {
             const { results, total_pages } = res.data
-            console.log(results);
             setMovieList(results)
             setTotalPages(total_pages <= 100 ? totalPages : 100)
             setLoading(false)
         })
-        .catch(err => {
-            console.log(err)
+        .catch(() => {
             setLoading(false)
         })
     }
