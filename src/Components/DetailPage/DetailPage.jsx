@@ -35,7 +35,6 @@ function DetailPage() {
     const btnClass = ['detail-btn']
 
     currentUser && btnWatch ? btnClass.push('detail-watched') : btnClass.push('detail-alb')
-    console.log(credits);
     const handleTrailer = key => {
         setTrailerKey(key)
     }
@@ -69,7 +68,7 @@ function DetailPage() {
         .then(res => {
             res.exists() ? setBtnWatch(true) : setBtnWatch(false)
         })
-        .catch(err => console.log(err))
+        .catch(() => {})
     }
 
     const fetchFunc = () => {
@@ -92,7 +91,6 @@ function DetailPage() {
             })
         )
         .catch(err => {
-            console.log(err)
             setCheckParams(false)
             setLoading(false)
         })  
@@ -151,7 +149,7 @@ function DetailPage() {
                                                     <FacebookShareButton 
                                                         resetButtonStyle={false} 
                                                         className="detail-btn detail-share"
-                                                        url={`huy27201-movie-app.herokuapp.com/${type}/${id}`}
+                                                        url={`huy27201-movie-app.netlify.app/${type}/${id}`}
                                                     >
                                                         <FaFacebookSquare />
                                                         <span>Chia sẻ</span>

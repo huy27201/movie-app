@@ -43,9 +43,7 @@ function Filters(props) {
                 setLanguages([...languages, ...res])
             }) 
         }
-        catch (err) {
-            console.log(err);
-        }
+        catch (err) {}
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
